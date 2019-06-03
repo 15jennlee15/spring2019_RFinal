@@ -13,5 +13,20 @@
     "categories": [],
     "preview": {},
     "last_modified": "2019-06-03T10:48:53-07:00"
+  },
+  {
+    "path": "posts/2019-06-03-script/",
+    "title": "Script",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Nora Jones",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2019-06-03",
+    "categories": [],
+    "preview": "posts/2019-06-03-script/script_files/figure-html5/saving plots-1.png",
+    "last_modified": "2019-06-03T10:56:00-07:00"
   }
 ]
