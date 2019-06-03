@@ -1,9 +1,9 @@
 ---
 title: "Making and Saving Plots"
 description: |
- This is a tutorial about makin and saving plots using purrr.
+ This is a tutorial about making and saving plots using parallel iterations
 author:
-  - name: Karlena 
+  - name: Karlena Ochoa 
     url: https://example.com/norajones
 date: 06-03-2019
 output:
@@ -11,7 +11,7 @@ output:
     self_contained: false
 ---
 
-```{r setup}
+```{r include = FALSE, setup }
 library(tidyverse)
 library(rio)
 library(here)
@@ -31,7 +31,7 @@ data <- data %>%
          profit = gross-budget)
 ```
 
-```{r Custom Function 1}
+```{r include = FALSE}
 #Make a function that tells you the average imdb rating for a specfic actor; this function will only work within this data set
 
 average_imdb <- function(x) {
@@ -50,7 +50,7 @@ average_imdb("Will Smith")
 
 ```
 
-```{r Custom Function 2}
+```{r include = FALSE}
 #Create a custom function that will pull out descriptive statistics for a variable
 
 descriptives <- function(x) {
@@ -61,7 +61,7 @@ descriptives <- function(x) {
 descriptives(data$imdb_score)
 ```
 
-```{r}
+```{r include = FALSE}
 
 # let's nest our data by genre
 
@@ -83,9 +83,8 @@ save_map <- map(df_country$data, ~length(.x[[1]]))
 save_map2 <- map(df_genre$data, ~length(.x[[1]]))
 ```
 
-For both categories there seems to be a very uneven number of observations per group. However, in genres this might be due to the fact that there are a lot of combinations. I am going to go ahead and use a criteria to determine the genre of the movie as the first genre that appears in the combination, and then I will nest the data again according to this new criteria (I will consider the other genres within the same genre as "sub-genres")
 
-```{r}
+```{r include = FALSE}
 #let's separate the combination of genres for each movie and keep the first genre as main genre in a new variable
 
 data_new <- data%>%
@@ -109,9 +108,8 @@ df_main_genre <- data_new%>%
 
 ```
 
-Now let's map through the list to run a regression predicting profit from number of facebook likes for the movie 
 
-```{r}
+```{r include = FALSE}
 df_mg_nonull <- df_main_genre[[2]]
 df_mg_nonull <- df_mg_nonull[!map_lgl(df_mg_nonull, is.null)]
 
@@ -148,7 +146,7 @@ slopes <- map_dbl(coefs, 2)
 
 
 
-```{r map 2 to get model comparisons}
+```{r include = FALSE}
 # As seen above, you can use map to extract the coefficients separately, but what if we wanted to do that AND extract the ses all at once? That's where map2 comes in!
 
 # compare model 1 vs model 2, model 2 adds a second predictor (imbd score) to see if there is a better fit
@@ -184,11 +182,9 @@ compare_all_tidy <- compare_all %>%
 
 ```
 
-Now that we have our data in tidy format we can plot the r-square for each model by Genre.
-We use model (model 1 and 2) as our x axis and r-square on the y-axis. We can use facet-wrap
-to create a plot for each genre side by side. We aren't going to worry about making it look pretty right now, we just want to get an idea of what it looks like. For example, it looks like our model fits well for Animation and Documentaries, but not so well for Action, Comedy, Crime. 
+Now that we have our data in tidy format we can plot the r-square for each model by Genre. We use model (model 1 and 2) as our x-axis and r-square on the y-axis. We can use facet-wrap to create a plot for each genre side by side. We aren't going to worry about making it look pretty right now, we just want to get an idea of what it looks like. For example, it looks like our model fits well for Animation and Documentaries, but not so well for Action, Comedy, Crime. 
 
-```{r making plots}
+```{r making rsquare plots, echo = TRUE}
 #show r-square for both models in one plot for all genres
 rsquare_plots <- compare_all_tidy %>%  
 ggplot(aes(model, r_square)) +
@@ -197,10 +193,13 @@ ggplot(aes(model, r_square)) +
     guides(fill = "none") +
     scale_fill_brewer(palette = "Set2")
 
+rsquare_plots
+
 ```
 
-This probably won't be included in the final tutorial but I'll leave it just in case because we are using coefs_plot for our final plots.  
-```{r}
+Now say that we are interested in seeing the coefficients plotted for each model we can use `gather`, `select`, `mutate`, and `unnest` to get it in the format we need for plotting. We use `unnest` at the end to get the data out of the list column format. 
+  
+```{r making coefs plots, include = FALSE, echo = TRUE}
 #unnest and tidy to be able to plot coefs
 coefs_plot <- model_comparison_df %>%
     gather(model, output, m1:m2) %>%
@@ -220,14 +219,19 @@ ggplot(aes(estimate, term, color = model)) +
     facet_wrap(~genre) +
   theme_minimal() +
   labs(x = "Coefficient",
-       title = "Plot of Model Fit for Number of Facebook Likes and IMDB Score Predicting Movie Profit",
+       title = "Plot of coefficients for Number of Facebook Likes and IMDB Score Predicting Movie Profit",
        subtitle = "Displayed by Genre")
+
+ploting_df_coefs
 ```
 
-In order to use pmap to get a separate plot for each genre, we will need to group by Genre and then nest. This will each us two columns - the first genre, and then all the data in a list column called date. This is where we will being pulling information in order to plot them. 
+Ultimately, we decide we want to look at model fit for the two different models, model 1 looking at Facebook likes predicting profit and model 2 looking at Facebook likes and IMDB score predicting profit. We will use `pmap` to prepare the data. 
 
-We will us pmap because it will allow us to loop through two or more vectors. In this case we will only be looping through 2, but if we decided to loop through 3 we could add a label for each of the. When using pmap you need to first say what the list is; in our case we will put pmap(list(data, genre). Now they are in a list we can refer to them in their position. For example, data can be referred to as ..1, and genre will be ..2. In order to create each plot we will use mutate and save it to "plot". From there we just ggplot like we regularly would. We will put ..1 as our data input because that says pull from the data list column. 
-```{r saving plots}
+In order to use pmap to get a separate plot for each genre, we will need to group by Genre and then nest. This will give us two columns - the first genre, and then all the data in a list column called data. This is where we will being pulling information in order to plot them. 
+
+We will us pmap because it will allow us to loop through two or more vectors. In this case we will only be looping through 2, but if we decided to loop through 3 we could add a label for each of the plots. When using pmap you need to first say what the list is; in our case we will put pmap(list(data, genre). Now they are in a list we can refer to them in their position. For example, data can be referred to as ..1 and genre will be ..2. In order to create each plot we will use mutate and save it to "plot". From there we just use ggplot like we regularly would. We will put ..1 as our data input because that says pull from the data list column. 
+
+```{r making and saving plots, echo = TRUE}
 
 #plot genres separately
 
@@ -237,7 +241,6 @@ for_plotting <- coefs_plot %>%
     group_by(genre) %>% 
     nest()
 
-#We will us pmap because it will allow us to loop through two or more vectors. In this case we will only be looping through 2, but if we decided to loop through 3 we could add a label for each of the. When using pmap you need to first say what the list is; in our case we will put pmap(list(data, genre). Now they are in a list we can refer to them in their position. For example, data can be referred to as ..1, and genre will be ..2. In order to create each plot we will use mutate and save it to "plot". From there we just ggplot like we regularly would. We will put ..1 as our data input because that says pull from the data list column.
 
 #make all plots using pmap 
 profit_by_genre <- for_plotting %>% 
@@ -248,35 +251,44 @@ profit_by_genre <- for_plotting %>%
     theme_minimal() +
     labs(x = "Coefficient",
          y = "Profit in Dollars",
-       title =  glue("Model fit predicting profit for {..2} movies")) +
+       title =  glue("Model fit for predicting profit for {..2} movies")) +
       scale_x_discrete(labels = c("Intercept", "IMDB Score", "Facebook"))))
     
 
-#We want to test a few to make sure they are working properly. If we type profit_by_genre it won't automatically display all the plots. 
+#We want to test a few to make sure they are working properly. 
+#If we type profit_by_genre it wouldn't automatically display all the plots,
+#we have to use indexing to call them. 
 
-#test a few plots
+#It's always important to test a few plots to make sure they look right. 
+profit_by_genre$plot[[1]]
 profit_by_genre$plot[[5]]
 profit_by_genre$plot[[6]]
 
-#In order to save the plots we need to create a directory. We are going to make a folder called "plots" with a subfolder called "profit_by_genre" 
-
-#create directory (folder) for plots, don't rerun because then we will have multiple folders
-
-#create directory (folder) for plots
-#fs::dir_create(here::here("plots", "profit_by_genre"))
-
-#files <- str_replace_all(tolower(profit_by_genre$genre), " ", "-")
-#paths <- here::here("plots", "profit_by_genre", glue("{files}.png"))
-#paths
-
-#don't rerun this because then we will be saving plots again to the folder. You can try it and then just delete extra plots if you want. 
-
-#this is where you are saving the plots to the folder you made
-#walk2(paths, profit_by_genre$plot, ggsave,
-      #width = 9.5, 
-      #height = 6.5,
-      #dpi = 500)
 ```
+
+In order to save the plots we need to create a directory. We are going to make a folder called "plots" with a subfolder called "profit_by_genre" 
+
+Create directory (folder) for plots
+
+`fs::dir_create(here::here("plots", "profit_by_genre"))`
+
+Then we will name all the plots and make sure all the titles are in the same format. We will call them by their genre. 
+
+`files <- str_replace_all(tolower(profit_by_genre$genre), " ", "-")`
+`paths <- here::here("plots", "profit_by_genre", glue("{files}.png"))`
+
+You can check the paths that you created to make sure they are there.
+You do this by just calling `paths`. 
+
+We will use walk2, which is also a parallel iteration, to save the plots to that folder we created. Walk2 is different than other parallel iterations because we are using it for the side effects and not necessarily the value like we do for map2.This is helpful in cases you may want to make a lot of plots and save them to a disk. 
+
+`walk2(paths, profit_by_genre$plot, ggsave,
+      width = 9.5, 
+      height = 6.5,
+      dpi = 500)`
+
+
+*Thanks for following along, we hope you enjoyed our tutorial! *
 
 
 

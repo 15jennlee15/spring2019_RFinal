@@ -21,36 +21,36 @@
   <!--radix_placeholder_meta_tags-->
 <title>My Blog: Making and Saving Plots</title>
 
-<meta property="description" itemprop="description" content="This is a tutorial about makin and saving plots using purrr."/>
+<meta property="description" itemprop="description" content="This is a tutorial about making and saving plots using parallel iterations"/>
 
 
 <!--  https://schema.org/Article -->
 <meta property="article:published" itemprop="datePublished" content="2019-06-03"/>
 <meta property="article:created" itemprop="dateCreated" content="2019-06-03"/>
-<meta name="article:author" content="Nora Jones"/>
+<meta name="article:author" content="Karlena Ochoa"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
 <meta property="og:title" content="My Blog: Making and Saving Plots"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="This is a tutorial about makin and saving plots using purrr."/>
+<meta property="og:description" content="This is a tutorial about making and saving plots using parallel iterations"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="My Blog"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
 <meta property="twitter:title" content="My Blog: Making and Saving Plots"/>
-<meta property="twitter:description" content="This is a tutorial about makin and saving plots using purrr."/>
+<meta property="twitter:description" content="This is a tutorial about making and saving plots using parallel iterations"/>
 
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Making and Saving Plots"]},{"type":"character","attributes":{},"value":["This is a tutorial about makin and saving plots using purrr."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Nora Jones"]},{"type":"character","attributes":{},"value":["https://example.com/norajones"]}]}]},{"type":"character","attributes":{},"value":["06-03-2019"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Making and Saving Plots"]},{"type":"character","attributes":{},"value":["This is a tutorial about making and saving plots using parallel iterations"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Karlena Ochoa"]},{"type":"character","attributes":{},"value":["https://example.com/norajones"]}]}]},{"type":"character","attributes":{},"value":["06-03-2019"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["making-and-saving-plots_files/bowser-1.9.3/bowser.min.js","making-and-saving-plots_files/distill-2.2.21/template.v2.js","making-and-saving-plots_files/figure-html5/saving plots-1.png","making-and-saving-plots_files/figure-html5/saving plots-2.png","making-and-saving-plots_files/jquery-1.11.3/jquery.min.js","making-and-saving-plots_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["making-and-saving-plots_files/bowser-1.9.3/bowser.min.js","making-and-saving-plots_files/distill-2.2.21/template.v2.js","making-and-saving-plots_files/figure-html5/making and saving plots-1.png","making-and-saving-plots_files/figure-html5/making and saving plots-2.png","making-and-saving-plots_files/figure-html5/making and saving plots-3.png","making-and-saving-plots_files/figure-html5/making coefs plots-1.png","making-and-saving-plots_files/figure-html5/making plots-1.png","making-and-saving-plots_files/figure-html5/making rsquare plots-1.png","making-and-saving-plots_files/figure-html5/saving plots-1.png","making-and-saving-plots_files/figure-html5/saving plots-2.png","making-and-saving-plots_files/jquery-1.11.3/jquery.min.js","making-and-saving-plots_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 
@@ -1280,7 +1280,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Making and Saving Plots","description":"This is a tutorial about makin and saving plots using purrr.","authors":[{"author":"Nora Jones","authorURL":"https://example.com/norajones","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2019-06-03T00:00:00.000-07:00","citationText":"Jones, 2019"}
+{"title":"Making and Saving Plots","description":"This is a tutorial about making and saving plots using parallel iterations","authors":[{"author":"Karlena Ochoa","authorURL":"https://example.com/norajones","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2019-06-03T00:00:00.000-07:00","citationText":"Ochoa, 2019"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1303,174 +1303,81 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div class="d-title">
 <h1>Making and Saving Plots</h1>
-<p>This is a tutorial about makin and saving plots using purrr.</p>
+<p>This is a tutorial about making and saving plots using parallel iterations</p>
 </div>
 
 <div class="d-byline">
-  Nora Jones <a href="https://example.com/norajones" class="uri">https://example.com/norajones</a> 
+  Karlena Ochoa <a href="https://example.com/norajones" class="uri">https://example.com/norajones</a> 
   
 <br/>06-03-2019
 </div>
 
 <div class="d-article">
+<p>Now that we have our data in tidy format we can plot the r-square for each model by Genre. We use model (model 1 and 2) as our x-axis and r-square on the y-axis. We can use facet-wrap to create a plot for each genre side by side. We aren’t going to worry about making it look pretty right now, we just want to get an idea of what it looks like. For example, it looks like our model fits well for Animation and Documentaries, but not so well for Action, Comedy, Crime.</p>
 <div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+#show r-square for both models in one plot for all genres
+rsquare_plots &lt;- compare_all_tidy %&gt;%  
+ggplot(aes(model, r_square)) +
+    geom_col(aes(fill = model)) +
+    facet_wrap(~genre) +
+    guides(fill = &quot;none&quot;) +
+    scale_fill_brewer(palette = &quot;Set2&quot;)
 
+rsquare_plots</code></pre>
+<p><img src="making-and-saving-plots_files/figure-html5/making%20rsquare%20plots-1.png" width="624" /></p>
 </div>
+<p>Now say that we are interested in seeing the coefficients plotted for each model we can use <code>gather</code>, <code>select</code>, <code>mutate</code>, and <code>unnest</code> to get it in the format we need for plotting. We use <code>unnest</code> at the end to get the data out of the list column format.</p>
+<p>Ultimately, we decide we want to look at model fit for the two different models, model 1 looking at Facebook likes predicting profit and model 2 looking at Facebook likes and IMDB score predicting profit. We will use <code>pmap</code> to prepare the data.</p>
+<p>In order to use pmap to get a separate plot for each genre, we will need to group by Genre and then nest. This will give us two columns - the first genre, and then all the data in a list column called data. This is where we will being pulling information in order to plot them.</p>
+<p>We will us pmap because it will allow us to loop through two or more vectors. In this case we will only be looping through 2, but if we decided to loop through 3 we could add a label for each of the plots. When using pmap you need to first say what the list is; in our case we will put pmap(list(data, genre). Now they are in a list we can refer to them in their position. For example, data can be referred to as ..1 and genre will be ..2. In order to create each plot we will use mutate and save it to “plot”. From there we just use ggplot like we regularly would. We will put ..1 as our data input because that says pull from the data list column.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>
-[1] 7.028</code></pre>
-<pre><code>
-[1] 6.736585</code></pre>
-<pre><code>
-[1] 6.731579</code></pre>
+<pre class="r"><code>
+#plot genres separately
+
+#group by genre and nest to be able to use pmap    
+for_plotting &lt;- coefs_plot %&gt;% 
+    bind_rows(.id = &quot;id&quot;) %&gt;% 
+    group_by(genre) %&gt;% 
+    nest()
+
+
+#make all plots using pmap 
+profit_by_genre &lt;- for_plotting %&gt;% 
+    mutate(plot = pmap(list(data, genre),
+    ~ggplot(..1, aes(term, estimate, color = model)) +
+    geom_point(size = 3) +
+    scale_color_brewer(palette = &quot;Set1&quot;, name = &quot;Model&quot;, labels = c(&quot;1&quot;, &quot;2&quot;)) +
+    theme_minimal() +
+    labs(x = &quot;Coefficient&quot;,
+         y = &quot;Profit in Dollars&quot;,
+       title =  glue(&quot;Model fit for predicting profit for {..2} movies&quot;)) +
+      scale_x_discrete(labels = c(&quot;Intercept&quot;, &quot;IMDB Score&quot;, &quot;Facebook&quot;))))
+    
+
+#We want to test a few to make sure they are working properly. 
+#If we type profit_by_genre it wouldn&#39;t automatically display all the plots,
+#we have to use indexing to call them. 
+
+#It&#39;s always important to test a few plots to make sure they look right. 
+profit_by_genre$plot[[1]]</code></pre>
+<p><img src="making-and-saving-plots_files/figure-html5/making%20and%20saving%20plots-1.png" width="624" /></p>
+<pre class="r"><code>
+profit_by_genre$plot[[5]]</code></pre>
+<p><img src="making-and-saving-plots_files/figure-html5/making%20and%20saving%20plots-2.png" width="624" /></p>
+<pre class="r"><code>
+profit_by_genre$plot[[6]]</code></pre>
+<p><img src="making-and-saving-plots_files/figure-html5/making%20and%20saving%20plots-3.png" width="624" /></p>
 </div>
-<div class="layout-chunk" data-layout="l-body">
-<pre><code>
-   mean.x.    sd.x. min.x. max.x. length.x.
-1 6.442138 1.125116    1.6    9.5      5043</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
-<p>For both categories there seems to be a very uneven number of observations per group. However, in genres this might be due to the fact that there are a lot of combinations. I am going to go ahead and use a criteria to determine the genre of the movie as the first genre that appears in the combination, and then I will nest the data again according to this new criteria (I will consider the other genres within the same genre as “sub-genres”)</p>
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
-<p>Now let’s map through the list to run a regression predicting profit from number of facebook likes for the movie</p>
-<div class="layout-chunk" data-layout="l-body">
-<pre><code>
-[[1]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-         -15113465.0                 958.1  
-
-
-[[2]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-          -2050677.5                 703.6  
-
-
-[[3]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-         -13588416.0                 656.1  
-
-
-[[4]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-           -20686205                  1114  
-
-
-[[5]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-            -7644335                  4462  
-
-
-[[6]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-           2565511.1                 701.4  
-
-
-[[7]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-           -42002273                  1143  
-
-
-[[8]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-           4181879.9                 742.7  
-
-
-[[9]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-          12305642.2                 832.2  
-
-
-[[10]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-          29587046.0                 136.3  
-
-
-[[11]]
-
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-          -2165732.3                 841.6  </code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<pre><code>
-Call:
-lm(formula = profit ~ movie_facebook_likes, data = .x)
-
-Coefficients:
-         (Intercept)  movie_facebook_likes  
-         -15113465.0                 958.1  </code></pre>
-</div>
-<p>Now that we have our data in tidy format we can plot the r-square for each model by Genre. We use model (model 1 and 2) as our x axis and r-square on the y-axis. We can use facet-wrap to create a plot for each genre side by side. We aren’t going to worry about making it look pretty right now, we just want to get an idea of what it looks like. For example, it looks like our model fits well for Animation and Documentaries, but not so well for Action, Comedy, Crime.</p>
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
-This probably won’t be included in the final tutorial but I’ll leave it just in case because we are using coefs_plot for our final plots.<br />
-
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
-<p>In order to use pmap to get a separate plot for each genre, we will need to group by Genre and then nest. This will each us two columns - the first genre, and then all the data in a list column called date. This is where we will being pulling information in order to plot them.</p>
-We will us pmap because it will allow us to loop through two or more vectors. In this case we will only be looping through 2, but if we decided to loop through 3 we could add a label for each of the. When using pmap you need to first say what the list is; in our case we will put pmap(list(data, genre). Now they are in a list we can refer to them in their position. For example, data can be referred to as ..1, and genre will be ..2. In order to create each plot we will use mutate and save it to “plot”. From there we just ggplot like we regularly would. We will put ..1 as our data input because that says pull from the data list column.
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="making-and-saving-plots_files/figure-html5/saving%20plots-1.png" width="624" /><img src="making-and-saving-plots_files/figure-html5/saving%20plots-2.png" width="624" /></p>
-</div>
+<p>In order to save the plots we need to create a directory. We are going to make a folder called “plots” with a subfolder called “profit_by_genre”</p>
+<p>Create directory (folder) for plots</p>
+<p><code>fs::dir_create(here::here("plots", "profit_by_genre"))</code></p>
+<p>Then we will name all the plots and make sure all the titles are in the same format. We will call them by their genre.</p>
+<p><code>files &lt;- str_replace_all(tolower(profit_by_genre$genre), " ", "-")</code> <code>paths &lt;- here::here("plots", "profit_by_genre", glue("{files}.png"))</code></p>
+<p>You can check the paths that you created to make sure they are there. You do this by just calling <code>paths</code>.</p>
+<p>We will use walk2, which is also a parallel iteration, to save the plots to that folder we created. Walk2 is different than other parallel iterations because we are using it for the side effects and not necessarily the value like we do for map2.This is helpful in cases you may want to make a lot of plots and save them to a disk.</p>
+<p><code>walk2(paths, profit_by_genre$plot, ggsave,       width = 9.5,        height = 6.5,       dpi = 500)</code></p>
+<p><em>Thanks for following along, we hope you enjoyed our tutorial! </em></p>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
