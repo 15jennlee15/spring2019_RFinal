@@ -261,19 +261,19 @@ profit_by_genre$plot[[6]]
 #create directory (folder) for plots, don't rerun because then we will have multiple folders
 
 #create directory (folder) for plots
-#fs::dir_create(here::here("plots", "profit_by_genre"))
+fs::dir_create(here::here("plots", "profit_by_genre"))
 
-#files <- str_replace_all(tolower(profit_by_genre$genre), " ", "-")
-#paths <- here::here("plots", "profit_by_genre", glue("{files}.png"))
-#paths
+files <- str_replace_all(tolower(profit_by_genre$genre), " ", "-")
+paths <- here::here("plots", "profit_by_genre", glue("{files}.png"))
+paths
 
 #don't rerun this because then we will be saving plots again to the folder. You can try it and then just delete extra plots if you want. 
 
 #this is where you are saving the plots to the folder you made
-#walk2(paths, profit_by_genre$plot, ggsave,
-      #width = 9.5, 
-      #height = 6.5,
-      #dpi = 500)
+walk2(paths, profit_by_genre$plot, ggsave,
+      width = 9.5, 
+      height = 6.5,
+      dpi = 500)
 ```
 
 
