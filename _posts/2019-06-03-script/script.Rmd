@@ -79,8 +79,8 @@ df_country <- data %>%
 
 # Country seems to be a more reasonable grouping variable to work with - In genres there seems to be a lot of combinations of different genres. but let's take a look at the number of observations per group for the two different categories 
 
-map(df_country$data, ~length(.x[[1]]))
-map(df_genre$data, ~length(.x[[1]]))
+save_map <- map(df_country$data, ~length(.x[[1]]))
+save_map2 <- map(df_genre$data, ~length(.x[[1]]))
 ```
 
 For both categories there seems to be a very uneven number of observations per group. However, in genres this might be due to the fact that there are a lot of combinations. I am going to go ahead and use a criteria to determine the genre of the movie as the first genre that appears in the combination, and then I will nest the data again according to this new criteria (I will consider the other genres within the same genre as "sub-genres")
@@ -112,8 +112,10 @@ df_main_genre <- data_new%>%
 Now let's map through the list to run a regression predicting profit from number of facebook likes for the movie 
 
 ```{r}
+df_mg_nonull <- df_main_genre[[2]]
+df_mg_nonull <- df_mg_nonull[!map_lgl(df_mg_nonull, is.null)]
 
-map(df_main_genre[[2]], ~lm(profit~movie_facebook_likes, .x))
+map(df_mg_nonull, ~lm(profit~movie_facebook_likes, .x))
 
 #but actually, I think it might be better if I bouild that data fram as a list of lists 
 
