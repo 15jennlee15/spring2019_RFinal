@@ -1338,7 +1338,10 @@ mean_function &lt;- function(variable) {
 <p>So for example, let’s say we wanted to have a function that calculates the mean of two variables. In this case, we’d need to provide two formals, variable 1 and variable 2 (see example below). Note that you can call the formals whatever you want. In this case we used ‘variable1’ and ‘variable2’. We could have also used ‘x’ and ‘y’, ‘cat’ and ‘dog’, anything really. The names are arbitrary, but it is most helpful to give the formals names that are meaninful so you can remember what type of information you need to provide it.</p></li>
 </ol>
 <div class="layout-chunk" data-layout="l-body">
-
+<pre class="r"><code>
+mean_function2 &lt;- function(variable1, variable2) {
+  (variable1 + variable2)/2
+}</code></pre>
 </div>
 <ol start="3" type="1">
 <li><em>Environment</em>: the “map” of the location of the function’s variables - where it lives. How the function finds the values assoiciated with the names. While you explicitly state the body and formals, the environment is implicitly specified based on where the function was defined.</li>
