@@ -71,7 +71,11 @@ mean_function2 <- function(variable1, variable2) {
   (variable1 + variable2)/2
 }
 ```
+3) *Environment*:  the "map" of the location of the function's variables - where it lives. How the function finds the     values assoiciated with the names.  While you explicitly state the body and formals, the environment is              implicitly specified based on where the function was defined.
 
+Additional Resources on Functions:
 
-3) *Environment*:  the "map" of the location of the function's variables - where it lives
+https://adv-r.hadley.nz/functions.html#function-fundamentals
+
+https://swcarpentry.github.io/r-novice-inflammation/02-func-R/
 
