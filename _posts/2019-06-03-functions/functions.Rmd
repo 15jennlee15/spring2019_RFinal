@@ -68,12 +68,12 @@ Next, a function is composed of three parts:
     
 ```{r Second Example Function with Two Formals, echo=TRUE}
 mean_function2 <- function(variable1, variable2) {
-  (variable1 + variable2)/2
+  (mean(variable1) + mean(variable2))/2
 }
 ```
 3) *Environment*:  the "map" of the location of the function's variables - where it lives. How the function finds       the values assoiciated with the names.  While you explicitly state the body and formals, the environment is         implicitly specified based on where the function was defined.
 
-Let's try out our functions using the mtcars dataset (built into R). First let's try out the 'mean_function'.  You can supply the function with a variable and it should output the mean. Let's try it out.
+Let's try out our functions using our movie dataset (link to download above) which I named 'data'. First let's try out the 'mean_function'.  You can supply the function with a variable and it should output the mean. Let's try it out.
 
 ```{r Trying Functions Out, echo =TRUE}
 #Here's our function
@@ -81,14 +81,52 @@ mean_function <- function(variable) {
   mean(variable)
 }
 
-#Using mpg (miles per gallon) variable from mtcars.
-mean_function(mtcars$mpg)
+#What is the average imdb score for the films in our dataset?
+mean_function(data$imdb_score)
 ```
-We called the function using the name we assigned it, supplied the input(our variable), and received the output (our mean) of 20.09062.
+We called the function using the name we assigned it, supplied the input(our variable), and received the output (our mean) of 6.44!
 
-Hooray! 
+Hooray!
 
-Now let's try out our second function 
+Let's try another.  Let's find out what the average film duration is.
+```{r Tryout Functions Number 2, echo=TRUE, error=TRUE}
+mean_function(data$duration)
+
+```
+Uh oh! Our result was NA? Why do you think that happened?
+
+When we look at our dataframe, we see that the variable 'duration' does have missing data.  We need to remove that to get our function to work.  To do that, let's just add it to our function!
+
+```{r Function Remove missing Data, echo=TRUE}
+#Let's write over our previous 'mean_function' to remove missing data so it works on more of our variables
+mean_function <- function(variable) {
+  mean(variable, na.rm=TRUE)
+}
+
+#Now let's try to find out the average film duration again
+mean_function(data$duration)
+```
+Great it worked!  The average film duration is 107 minutes.
+
+Now let's try out our second function. Let's combine the number of facebook likes for actor1 and actor2 and see what the overall average is. But first, let's modify the function to remove missing data.
+
+```{r Testing Out Function 2 Average Number of Facebook Likes}
+#modify the function to exclude missing data
+mean_function2 <- function(variable1, variable2) {
+  (mean(variable1, na.rm=TRUE) + mean(variable2, na.rm=TRUE))/2
+}
+
+#Remember we have to provide two variables for our second function
+mean_function2(data$actor_1_facebook_likes, data$actor_2_facebook_likes)
+
+```
+The average number of facebook likes is 4,105! Great job!
+
+Now let's try something silly. Let's try to get the mean of color using 'mean_function'
+```{r Mean of Color}
+mean_function(data$color)
+
+```
 
 ```{r Custom Function 1}
 #Make a function that tells you the average imdb rating for a specfic actor; this function will only work within this data set
