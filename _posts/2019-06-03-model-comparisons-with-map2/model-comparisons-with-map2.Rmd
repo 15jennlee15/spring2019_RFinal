@@ -1,21 +1,148 @@
 ---
 title: "Model Comparisons with map2"
 description: |
-  A short description of the post.
+  This tutorial will take you through how to conduct multiple comparisons using map2.
 author:
-  - name: Nora Jones
-    url: https://example.com/norajones
-date: 06-03-2019
+  - name: Kathryn Denning
+date: 06-04-2019
 output:
   distill::distill_article:
     self_contained: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r setup and code from other tutorial sections, include = FALSE}
+library(tidyverse)
+library(rio)
+library(here)
+library(stringr)
+#install.packages("splitstackshape")
+library(splitstackshape)
+library(magrittr)
+library(glue)
+
+options(scipen=999)
+
+# All data from Jenn's and Tamara's tutorial that were needed to get to the point that I can run my code
+data <- import(here("data", "movie_metadata.csv_movie_metadata.csv"))
+
+data <- data %>%
+  mutate(gross = as.numeric(gross),
+         budget = as.numeric(budget),
+         profit = gross-budget)
+
+df_genre <- data %>% 
+  drop_na()%>%
+  group_by(genres)%>%
+  nest()
+
+data_new <- data%>%
+ drop_na() %>%
+ filter(movie_facebook_likes != "0")
+
+data_new<- cSplit(data_new, "genres", "|")
+
+data_new %<>% rename(main_genre = genres_1)
+
+df_main_genre <- data_new%>%
+ select(-genres_2:-genres_8) %>%
+ filter(!grepl('Thriller|Western|Musical|Family|Romance|Sci-Fi', main_genre)) %>%
+# need to remove thriller, western, musical, family, romance, sci_fi for having less than 5 movies
+ group_by(main_genre) %>%
+ nest()
+
+df_mg_nonull <- df_main_genre[[2]]
+df_mg_nonull <- df_mg_nonull[!map_lgl(df_mg_nonull, is.null)]
+
+df_mg_list <- data_new %>%
+ select(-genres_2, -genres_3, -genres_4, -genres_5, -genres_6, -genres_7, -genres_8)%>%
+ mutate(main_genre = as.factor(main_genre)) %>%
+ filter(!grepl('Thriller|Western|Musical|Family|Romance|Sci-Fi', main_genre)) %>%
+ droplevels(data_new$main_genre) %>%
+# need to remove thriller, western, musical, family, romance, sci_fi for having less than 5 movies
+   as_tibble()
+
+
+by_main_genre <- split(df_mg_list, df_mg_list$main_genre)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
+You just learned in the previous tutorial how to use map to run the same linear regression repeatedly for different genres of the dataset and extract information (like the coefficients) from the dataset. However, what if you wanted to run a model comparison, meaning you wanted to cycle through the data twice using two different models? 
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+To do this, you'll need to use map2! Unlike map and its variants (e.g., map_dbl, map_df) that only allow you to provide one input, map2 allows for the user to provide two inputs, or two things you want it to cycle through. But why is this useful? Lets check out why we need it by looking at some code.
 
+
+### Review of how we used map in the map tutorial
+
+As a reminder, this was the final output from the last tutorial where you ran one multiple comparison and extracted the coefficients and slopes using map.
+
+```{r review of when we used map, echo = TRUE}
+model <- map(by_main_genre, ~lm(profit ~ movie_facebook_likes, .x))
+
+coefs <- map(model, ~coef(.x))
+slopes <- map_dbl(coefs, 2)
+
+```
+
+If we wanted to add a second predictor and run another regression with that second predictor of IMBD Score, we could do that using map. The only difference from the previous model is that we added our second predictor "imbd_score" and named the model differently (model2 instead of just model).
+
+```{r second model using map, echo = TRUE}
+model2 <- map(by_main_genre, ~lm(profit ~ movie_facebook_likes + imdb_score, .x))
+```
+
+However, we can't run a typical model comparison of the output of these two models using anova because we can an error that anova can not be applied to an object of class "list." Why can't we do this? Well, we don't just have two linear regressions overall, which is what Anova is expecting. Instead, we have two separate lists of two types of linear regressions that were run on eleven different genres (22 regression overall!).
+
+### Can we run a model comparison with this output?
+
+```{r, error = TRUE, echo = TRUE}
+anova(model, model2)
+```
+
+We could run a singular model comparison of one model from the first set of models we ran and the second set of models we ran by telling anova which models to use. You can see below that we did that by telling anova to compare the models run for the genre "Action." However, we wouldn't want to do this 11 times by hand!
+
+Instead, we want write code that will compare model 1 and model 2 for each genre. To do this, we are going to need to combine the lists by nesting them into one dataframe and then use map to cycle through the lists of model output. 
+
+```{r, echo = TRUE}
+anova(model$Action, model2$Action)
+```
+
+
+### Getting the data in the right format for model comparison!
+
+First, we will need to organize our data so that the regression output we get via mapping is in one dataframe, instead of two completely unrelated dataframes. You can see below that we are going to start with the dataset that we used earlier, "by_main_genre." But that dataset is a list of dataframes (check out str(by_main_genre) if you want to verify this) and group_by, which we are going to need to use, can't be used on a list of dataframes. Instead, we need to reformat our data into one single dataframe but keep track of which sets of information were with each nested dataframe previously. To do this, we use bind_rows to create one dataframe and include the arguent .id = "genre" to keep track of which dataframe is which within the now single dataframe we have created. After that, we will group_by(genre), remove na's using na.omit(), and then nest the data. Now the tibble consists of one column of genre and another column of data, which now includes the nested dataframes consisting of all the other variables within the dataset grouped by their genre. Now we can loop through those nested dataframes and run two linear regressions using map. This is very similiar to what we did in the previous section, only now we have two models within the mutate() function.
+
+
+
+```{r, echo = TRUE}
+model_comparison_df <- by_main_genre %>% 
+  bind_rows(.id = "genre") %>% #for tutorial, make note on what this does and why you have to do it to use group-by
+  group_by(genre) %>% 
+  na.omit() %>% 
+  nest() %>% 
+  mutate(m1 = map(data, ~lm(profit ~ movie_facebook_likes, .x)),
+         m2 = map(data, ~lm(profit ~ movie_facebook_likes + imdb_score, .x)))
+```
+
+### Using map2 to conduct a model comparison
+
+Now is where map2 comes in! To our run our model comparisons of model 1 compared to model 2 for each genre, we are going to need to use map2. As we did previously, map2 will be put within a mutate() function. The big difference is that now the first two arguments we are providing are the two different inputs we want it to loop through - in this case, m1 and m2 for model1 and model2. The third piece of information we provide is the function we want applied to those inputs - in this instance, anova. By putting this information within mutate(anova_output = map2(m1, m2, anova), we are telling R to create a column in our list that includes the anova output of each of those eleven model comparisons.
+
+```{r, echo = TRUE}
+compare_all <- model_comparison_df %>%
+    mutate(anova_output = map2(m1, m2, anova))
+```
+
+### Extracting information from the model comparison
+
+In order to plot this information later, we might want to use map to extract information from this list of output. Without any data-wrangling, we can already extract the p-value from the list output of the anova model comparisons. We can do this within a mutate and then use map_dbl (because we want this to be a list of numbers). Within that map_dbl, we will tell it to look within the list for each genre within the column labeled "anova_output" and pull out the column labeled "Pr(>F)" within each of those lists. 
+
+If we want to extract the R-squared value, this will require a little wrangling. Specifically, we will need to gather the columns with the output for each regression (m1 and m2) into two columns, one that simply has the name of the model (m1 or m2) and one with a list of output for that model. Now we can tell map_dbl to go through the output column and extract summary information of the r.squared value from each model, using the code ~summary(.x)$r.squared within the map_dbl. This will create a column with the r-squared value extracted from the linear regression run for each regression for both model 1 and model 2.
+
+```{r, echo = TRUE}
+compare_all_tidy <- compare_all %>% 
+  mutate(p_val = map_dbl(anova_output, list("Pr(>F)", 2))) %>% 
+  gather(model, output, m1:m2) %>% 
+    mutate(r_square = map_dbl(output, ~summary(.x)$r.squared))
+        
+
+```
+
+Now that we have our data in tidy format we can plot the r-square for each model by Genre. This will be done in the next tutorial, titled "Making and Saving Plots."
