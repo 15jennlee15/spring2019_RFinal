@@ -70,7 +70,7 @@ You just learned in the previous tutorial how to use map to run the same linear 
 To do this, you'll need to use map2! Unlike map and its variants (e.g., map_dbl, map_df) that only allow you to provide one input, map2 allows for the user to provide two inputs, or two things you want it to cycle through. But why is this useful? Lets check out why we need it by looking at some code.
 
 
-### Review of how we used map in the last tutorial
+### Review of how we used map in the map tutorial
 
 As a reminder, this was the final output from the last tutorial where you ran one multiple comparison and extracted the coefficients and slopes using map.
 
