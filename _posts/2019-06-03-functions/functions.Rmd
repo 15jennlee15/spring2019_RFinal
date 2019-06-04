@@ -52,9 +52,30 @@ mean_function <- function(variable) {
 }
 
 ```
-A function is composed of three parts:
+First by using the "<-" we are assigning the function to an object name.  Note that the name of the function is meaningful, that is, we can guess what it does by it's name. This is important as if you create a lot of functions, you may loose track of the purpose of each, furthermore, it helps make your code more readable to others.
 
-1) Body: this is the code inside the function (inside the curly brackets {})
-2) Formals: these are the arguements supplied to the function - controls how we can call the function
-3) Environemnt:  the "map" of the location of the function's variables - where it lives
+Our example function is very simple, it calculates the mean of a variable.  Now, we could just do this with mean(variable), but I wanted to use a simple example for our first function.
+
+Next, a function is composed of three parts:
+
+1) *Body*: this is the code inside the function (inside the curly brackets {})
+    In our example, the 'body' is the part within the curly brackets, in this case:  mean(variable)
+    
+2) *Formals*: these are the arguements supplied to the function - controls how we can call the function
+    In our example, the formal, the arguement we supply to the function, is 'variable'. The formals are listed in the     parantheses right after function.  Your function can have multiple formals. 
+    
+   So for example, let's say we wanted to have a function that calculates the mean of two variables.  In this           case, we'd need to provide two formals, variable 1 and variable 2 (see example below).  Note that you can call the    formals whatever you want. In this case we used 'variable1' and 'variable2'. We could have also used 'x' and 'y',    'cat' and 'dog', anything really. The names are arbitrary, but it is most helpful to give the formals names that     are meaninful so you can remember what type of information you need to provide it. 
+    
+```{r Second Example Function with Two Formals}
+mean_function2 <- function(variable1, variable2) {
+  (variable1 + variable2)/2
+}
+```
+3) *Environment*:  the "map" of the location of the function's variables - where it lives. How the function finds the     values assoiciated with the names.  While you explicitly state the body and formals, the environment is              implicitly specified based on where the function was defined.
+
+Additional Resources on Functions:
+
+https://adv-r.hadley.nz/functions.html#function-fundamentals
+
+https://swcarpentry.github.io/r-novice-inflammation/02-func-R/
 
