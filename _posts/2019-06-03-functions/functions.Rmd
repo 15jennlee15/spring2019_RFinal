@@ -23,9 +23,38 @@ data <- data %>%
          budget = as.numeric(budget),
          profit = gross-budget)
 ```
+###Introduction
+
+In this blog tutorial we will be learning about creating functions in R. To follow along in RStudio you will need the following packages installed and loaded:
+
+-tidyverse
+-rio
+-here
+
+Furthermore, you will want to download and import the dataset we use here from this site:
+https://data.world/popculture/imdb-5000-movie-dataset
+
+Make sure you put this data in your working directory, or I'd recommend making a new R project and adding a data folder there!
+
+Description of data:
+28 variables for 5043 movies and 4906 posters, spanning across 100 years in 66 countries. There are 2399 unique director names, and thousands of actors/actresses. Examples of variables in the data set are: "movie_title"  "title_year"  "movie_facebook_likes"
 
 ###What's a Function?
 
 What is a function? Very simply, a function is a block of reusable code that is used to perform an action.  
-In R, we can store a function as an object, A function is composed of three parts, 
+In R, we can store a function as an object and thus be able to recall the function repeatedly and perform an operation (or several) very quickly and easily with a single command.  Let's break it down a little bit more.
+
+Here's an example of a function
+```{r Example Function}
+
+mean_function <- function(variable) {
+  mean(variable)
+}
+
+```
+A function is composed of three parts:
+
+1) Body: this is the code inside the function (inside the curly brackets {})
+2) Formals: these are the arguements supplied to the function - controls how we can call the function
+3) Environemnt:  the "map" of the location of the function's variables - where it lives
 
