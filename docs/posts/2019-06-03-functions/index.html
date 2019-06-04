@@ -1346,6 +1346,22 @@ mean_function2 &lt;- function(variable1, variable2) {
 <ol start="3" type="1">
 <li><em>Environment</em>: the “map” of the location of the function’s variables - where it lives. How the function finds the values assoiciated with the names. While you explicitly state the body and formals, the environment is implicitly specified based on where the function was defined.</li>
 </ol>
+<p>Let’s try out our functions using the mtcars dataset (built into R). First let’s try out the ‘mean_function’. You can supply the function with a variable and it should output the mean. Let’s try it out.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+#Here&#39;s our function
+mean_function &lt;- function(variable) {
+  mean(variable)
+}
+
+#Using mpg (miles per gallon) variable from mtcars.
+mean_function(mtcars$mpg)</code></pre>
+<pre><code>
+[1] 20.09062</code></pre>
+</div>
+<p>We called the function using the name we assigned it, supplied the input(our variable), and received the output (our mean) of 20.09062.</p>
+<p>Hooray!</p>
+<p>Now let’s try out our second function</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre><code>
 [1] 7.028</code></pre>

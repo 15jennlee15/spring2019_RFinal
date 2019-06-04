@@ -62,9 +62,9 @@ Next, a function is composed of three parts:
     In our example, the 'body' is the part within the curly brackets, in this case:  mean(variable)
     
 2) *Formals*: these are the arguements supplied to the function - controls how we can call the function
-    In our example, the formal, the arguement we supply to the function, is 'variable'. The formals are listed in the     parantheses right after function.  Your function can have multiple formals. 
+    In our example, the formal, the arguement we supply to the function, is 'variable'. The formals are listed in       the parantheses right after function.  Your function can have multiple formals. 
     
-   So for example, let's say we wanted to have a function that calculates the mean of two variables.  In this           case, we'd need to provide two formals, variable 1 and variable 2 (see example below).  Note that you can call the    formals whatever you want. In this case we used 'variable1' and 'variable2'. We could have also used 'x' and 'y',    'cat' and 'dog', anything really. The names are arbitrary, but it is most helpful to give the formals names that     are meaninful so you can remember what type of information you need to provide it. 
+   So for example, let's say we wanted to have a function that calculates the mean of two variables.  In this           case, we'd need to provide two formals, variable 1 and variable 2 (see example below).  Note that you can call      the formals whatever you want. In this case we used 'variable1' and 'variable2'. We could have also used 'x' and     'y', 'cat' and 'dog', anything really. The names are arbitrary, but it is most helpful to give the formals names     that are meaninful so you can remember what type of information you need to provide it. 
     
 ```{r Second Example Function with Two Formals, echo=TRUE}
 mean_function2 <- function(variable1, variable2) {
@@ -72,6 +72,23 @@ mean_function2 <- function(variable1, variable2) {
 }
 ```
 3) *Environment*:  the "map" of the location of the function's variables - where it lives. How the function finds       the values assoiciated with the names.  While you explicitly state the body and formals, the environment is         implicitly specified based on where the function was defined.
+
+Let's try out our functions using the mtcars dataset (built into R). First let's try out the 'mean_function'.  You can supply the function with a variable and it should output the mean. Let's try it out.
+
+```{r Trying Functions Out, echo =TRUE}
+#Here's our function
+mean_function <- function(variable) {
+  mean(variable)
+}
+
+#Using mpg (miles per gallon) variable from mtcars.
+mean_function(mtcars$mpg)
+```
+We called the function using the name we assigned it, supplied the input(our variable), and received the output (our mean) of 20.09062.
+
+Hooray! 
+
+Now let's try out our second function 
 
 ```{r Custom Function 1}
 #Make a function that tells you the average imdb rating for a specfic actor; this function will only work within this data set
