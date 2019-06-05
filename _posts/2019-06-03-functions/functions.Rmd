@@ -241,6 +241,29 @@ Input_if(-4)
 In our example function above, we used 'if' statements to make it so the function performed differently if the input(a number) was greater than or less than 0.  
 
 You can use as many 'if' statements as you'd like in a function. You can also use 'else' if you want the function to perform one way for a given condition but respond another way given any other input that doesn't match that condition. For example, instead of using two 'if' statements in our function above, we could have used 'else'.
+
+```{r Example Statement with Else, echo=TRUE}
+Input_if <- function(number) {
+  if(number >= 0) {
+    number * 5
+  }
+  else {
+    abs(number) * 5
+  }
+}
+
+#Try it out
+Input_if(4)
+
+Input_if(-4)
+
+```
+
+### More on Custom Functions
+
+Our 'average_imdb' function was fun and worked efficiently, however, that function would only be relevant to that particular dataset.  Let's make a function that is more generalizable and could be used with any dataset.
+
+
 ```{r Custom Function 2}
 #Create a custom function that will pull out descriptive statistics for a variable
 
