@@ -206,7 +206,9 @@ average_imdb("Tom Crude")
 
 This time we receive not 'NA' but a helpful message that tells us that our name is not in the database or that we misspelled it. 
 
-In this case, we included a conditional return message, but you can also provide custom messages, warnings, and errors. To create a custom error, you will enter the conditional information, and use 'stop' instead or 'return'.  Stop 'stops' the function and outputs the error.
+### IF Statements
+
+In the previous case, we included a conditional return message, but you can also provide custom messages, warnings, and errors. To create a custom error, you will enter the conditional information, and use 'stop' instead or 'return'.  Stop 'stops' the function and outputs the error.
 
 if(what is the condition) {
   stop("Error Message)
@@ -218,7 +220,27 @@ if(conditional statement) {
   warning("warning message")
 }
 
+We do this by adding 'If' statements within our function.  If staements provide conditions through which the function operates differentially given certain circumstances.  In the case above, we created an 'If' statement that was based on the output we received.  You could also create 'If' statements that affect how the input is dealt with. For example:
 
+```{r Example If Statement for Input, echo=TRUE}
+Input_if <- function(number) {
+  if(number >= 0) {
+    number * 5
+  }
+  if(number < 0) {
+    abs(number) * 5
+  }
+}
+
+#Try it out
+Input_if(4)
+
+Input_if(-4)
+
+```
+In our example function above, we used 'if' statements to make it so the function performed differently if the input(a number) was greater than or less than 0.  
+
+You can use as many 'if' statements as you'd like in a function. You can also use 'else' if you want the function to perform one way for a given condition but respond another way given any other input that doesn't match that condition. For example, instead of using two 'if' statements in our function above, we could have used 'else'.
 ```{r Custom Function 2}
 #Create a custom function that will pull out descriptive statistics for a variable
 
