@@ -964,7 +964,7 @@
 
 <div class="d-article">
 <p>You learned in a previous tutorial how to use map to run the same linear regression repeatedly for different genres of the dataset and extract information (like the coefficients) from the dataset. However, what if you wanted to run a model comparison to see if one model provides a better fit than another model, meaning you wanted to cycle through the data twice using two different models?</p>
-<p>To do this, you’ll need to use map2! Unlike map and its variants (e.g., map_dbl, map_df) that only allow you to provide one input, map2 allows the user to provide two inputs, or two things you want it to cycle through. But why is this useful? Lets check out why we need it by looking at some code.</p>
+<p>To do this, you’ll need to use <code>map2</code>! Unlike map and its variants (e.g., map_dbl, map_df) that only allow you to provide one input, map2 allows the user to provide two inputs, or two things you want it to cycle through. But why is this useful? Lets check out why we need it by looking at some code.</p>
 <h3 id="review-of-how-we-used-map-in-the-map-tutorial">Review of how we used map in the map tutorial</h3>
 <p>As a reminder, this was the final output from the last tutorial where you ran one regression and extracted the coefficients and slopes using map.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -986,7 +986,7 @@ anova(model, model2)</code></pre>
 <pre><code>
 Error in UseMethod(&quot;anova&quot;): no applicable method for &#39;anova&#39; applied to an object of class &quot;list&quot;</code></pre>
 </div>
-<h4 id="answer-not-with-this-output">Answer: Not with this output!</h4>
+<p><strong>Answer: Not with this output!</strong></p>
 <p>We can’t run a typical model comparison of the output of these two models using anova because we get an error that anova can not be applied to an object of class “list.”</p>
 <p><em>Why can’t we do this?</em> Well, we don’t just have two linear regressions overall, which is what anova is expecting. Instead, we have two separate lists of two types of linear regressions that were run on eleven different genres (22 regressions overall!).</p>
 <p>We could run a singular model comparison of one model from the first set of models we ran and another from the second set of models we ran by telling anova which models to use. You can see below that we did that by telling anova to compare the models run for the genre “Action.” However, we wouldn’t want to do this 11 times by hand!</p>
