@@ -178,9 +178,9 @@ Now, what if I misspelled an actor's name, what would the function to then?  Let
 
 average_imdb("tom cruz")
 ```
-The function returned 'NA'.  This makes sense given that there isn't a 'tom cruz' in our list, but that may not be clear to the user of our function.  One thing we can do to make our function even more effective, is to add helpful error messages. Let's try adding a more descriptive error message to our average imdb function.
+The function returned 'NA'.  This makes sense given that there isn't a 'tom cruz' in our list, but that may not be clear to the user of our function.  One thing we can do to make our function even more effective is to add helpful messages, warnings, and errors. Let's try adding a more descriptive return message to our average imdb function when we receive 'NA'.
 
-```{r Helpful Error Messages, eval=TRUE}
+```{r Helpful Return Messages, echo=TRUE}
 average_imdb <- function(actor) {
   df <- data %>%
     select(actor_1_name, actor_2_name, actor_3_name, imdb_score) %>%
@@ -190,7 +190,7 @@ average_imdb <- function(actor) {
   row.names(df) <- df$actor 
   
  name <- df[actor,"imdb_score"]
- 
+ #We can add 'if' statements to our functions to add conditions to our function. See more below.
  if(is.na(name)) {
     return("This actor is not in our database.  Did you check your spelling?  Make sure to capitalize the first letter of the first and last name")
  }
@@ -204,12 +204,50 @@ average_imdb("Tom Crude")
 
 ```
 
+This time we receive not 'NA' but a helpful message that tells us that our name is not in the database or that we misspelled it. 
+
+### IF Statements
+
+In the previous case, we included a conditional return message, but you can also provide custom messages, warnings, and errors. To create a custom error, you will enter the conditional information, and use 'stop' instead or 'return'.  Stop 'stops' the function and outputs the error.
+
+if(what is the condition) {
+  stop("Error Message)
+}
+
+Warning is very similar, except you'd use 'warning' instead or 'stop'. In this case the function won't stop running, put will provide the output as well as the error message.
+
+if(conditional statement) {
+  warning("warning message")
+}
+
+We do this by adding 'If' statements within our function.  If staements provide conditions through which the function operates differentially given certain circumstances.  In the case above, we created an 'If' statement that was based on the output we received.  You could also create 'If' statements that affect how the input is dealt with. For example:
+
+```{r Example If Statement for Input, echo=TRUE}
+Input_if <- function(number) {
+  if(number >= 0) {
+    number * 5
+  }
+  if(number < 0) {
+    abs(number) * 5
+  }
+}
+
+#Try it out
+Input_if(4)
+
+Input_if(-4)
+
+```
+In our example function above, we used 'if' statements to make it so the function performed differently if the input(a number) was greater than or less than 0.  
+
+You can use as many 'if' statements as you'd like in a function. You can also use 'else' if you want the function to perform one way for a given condition but respond another way given any other input that doesn't match that condition. For example, instead of using two 'if' statements in our function above, we could have used 'else'.
 ```{r Custom Function 2}
 #Create a custom function that will pull out descriptive statistics for a variable
 
 descriptives <- function(x) {
   data.frame(mean(x), sd(x), min(x), max(x), length(x))
   }
+n_missing = nmiss ,- sum(is.na(x))
 
 #Test if it works
 descriptives(data$imdb_score)

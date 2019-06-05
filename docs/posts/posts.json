@@ -12,7 +12,7 @@
     "date": "2019-06-04",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-06-05T10:00:59-07:00"
+    "last_modified": "2019-06-04T14:43:24-07:00"
   },
   {
     "path": "posts/2019-06-03-functions/",
@@ -72,6 +72,14 @@
     "date": "2019-06-03",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-06-03T10:57:11-07:00"
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "last_modified": "2019-06-04T14:25:30-07:00"
+=======
+    "last_modified": "2019-06-04T14:42:42-07:00"
+>>>>>>> master
+=======
+    "last_modified": "2019-06-05T09:57:41-07:00"
+>>>>>>> master
   }
 ]
