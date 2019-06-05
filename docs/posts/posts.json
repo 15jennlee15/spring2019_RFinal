@@ -12,7 +12,22 @@
     "date": "2019-06-04",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-06-04T14:43:24-07:00"
+    "last_modified": "2019-06-05T11:22:20-07:00"
+  },
+  {
+    "path": "posts/2019-06-03-functions/",
+    "title": "Functions",
+    "description": "A quick tutorial on functions and creating custom functions",
+    "author": [
+      {
+        "name": "Jenn Lewis",
+        "url": "https://github.com/15jennlee15"
+      }
+    ],
+    "date": "2019-06-03",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-06-05T10:02:36-07:00"
   },
   {
     "path": "posts/2019-06-03-making-and-saving-plots/",
@@ -56,30 +71,7 @@
     ],
     "date": "2019-06-03",
     "categories": [],
-    "preview": "posts/2019-06-03-making-and-saving-plots/making-and-saving-plots_files/figure-html5/making rsquare plots-1.png",
-    "last_modified": "2019-06-03T13:10:25-07:00"
-  },
-  {
-    "path": "posts/2019-06-03-functions/",
-    "title": "Functions",
-    "description": "A quick tutorial on functions and creating custom functions",
-    "author": [
-      {
-        "name": "Jenn Lewis",
-        "url": "https://github.com/15jennlee15"
-      }
-    ],
-    "date": "2019-06-03",
-    "categories": [],
     "preview": {},
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "last_modified": "2019-06-04T14:25:30-07:00"
-=======
-    "last_modified": "2019-06-04T14:42:42-07:00"
->>>>>>> master
-=======
-    "last_modified": "2019-06-05T09:57:41-07:00"
->>>>>>> master
+    "last_modified": "2019-06-03T10:58:55-07:00"
   }
 ]

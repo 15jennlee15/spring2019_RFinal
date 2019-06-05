@@ -963,8 +963,8 @@
 </div>
 
 <div class="d-article">
-<p>You just learned in the previous tutorial how to use map to run the same linear regression repeatedly for different genres of the dataset and extract information (like the coefficients) from the dataset. However, what if you wanted to run a model comparison to see if one model provides a better fit than another model, meaning you wanted to cycle through the data twice using two different models?</p>
-<p>To do this, you’ll need to use map2! Unlike map and its variants (e.g., map_dbl, map_df) that only allow you to provide one input, map2 allows for the user to provide two inputs, or two things you want it to cycle through. But why is this useful? Lets check out why we need it by looking at some code.</p>
+<p>You learned in a previous tutorial how to use map to run the same linear regression repeatedly for different genres of the dataset and extract information (like the coefficients) from the dataset. However, what if you wanted to run a model comparison to see if one model provides a better fit than another model, meaning you wanted to cycle through the data twice using two different models?</p>
+<p>To do this, you’ll need to use map2! Unlike map and its variants (e.g., map_dbl, map_df) that only allow you to provide one input, map2 allows the user to provide two inputs, or two things you want it to cycle through. But why is this useful? Lets check out why we need it by looking at some code.</p>
 <h3 id="review-of-how-we-used-map-in-the-map-tutorial">Review of how we used map in the map tutorial</h3>
 <p>As a reminder, this was the final output from the last tutorial where you ran one regression and extracted the coefficients and slopes using map.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -974,7 +974,7 @@ model &lt;- map(by_main_genre, ~lm(profit ~ movie_facebook_likes, .x))
 coefs &lt;- map(model, ~coef(.x))
 slopes &lt;- map_dbl(coefs, 2)</code></pre>
 </div>
-<p>If we wanted to add a second predictor and run another regression with that second predictor of “imbd_score”, we could do that using map. The only difference from the previous model is that we added our second predictor “imbd_score” and named the model differently (model2 instead of just model).</p>
+<p>If we wanted to add a second predictor and run another regression with that second predictor of “imbd_score,” we could do that using map. The only difference from the previous model is that we added our second predictor “imbd_score” and named the model differently (model2 instead of just model).</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 model2 &lt;- map(by_main_genre, ~lm(profit ~ movie_facebook_likes + imdb_score, .x))</code></pre>
@@ -989,7 +989,7 @@ Error in UseMethod(&quot;anova&quot;): no applicable method for &#39;anova&#39; 
 <h4 id="answer-not-with-this-output">Answer: Not with this output!</h4>
 <p>We can’t run a typical model comparison of the output of these two models using anova because we get an error that anova can not be applied to an object of class “list.”</p>
 <p><em>Why can’t we do this?</em> Well, we don’t just have two linear regressions overall, which is what anova is expecting. Instead, we have two separate lists of two types of linear regressions that were run on eleven different genres (22 regressions overall!).</p>
-<p>We could run a singular model comparison of one model from the first set of models we ran and the second set of models we ran by telling anova which models to use. You can see below that we did that by telling anova to compare the models run for the genre “Action.” However, we wouldn’t want to do this 11 times by hand!</p>
+<p>We could run a singular model comparison of one model from the first set of models we ran and another from the second set of models we ran by telling anova which models to use. You can see below that we did that by telling anova to compare the models run for the genre “Action.” However, we wouldn’t want to do this 11 times by hand!</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 anova(model$Action, model2$Action)</code></pre>
@@ -1007,10 +1007,10 @@ Model 2: profit ~ movie_facebook_likes + imdb_score
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
-<p>Instead, we want write code that will compare model 1 and model 2 for each genre. To do this, we are going to need to combine the lists by nesting them into one dataframe and then use map to cycle through the lists of model output.</p>
+<p>Instead, we want to write code that will compare model 1 and model 2 for each genre for us, so we don’t have to run all of them by hand. To do this, we are going to need to combine the lists by nesting them into one dataframe and then use map to cycle through the lists of model output.</p>
 <h3 id="getting-the-data-in-the-right-format-for-model-comparison">Getting the data in the right format for model comparison!</h3>
 <p>First, we will need to organize our data so that the regression output we get via mapping is in one dataframe, instead of two completely unrelated dataframes.</p>
-<p>You can see below that we are going to start with the dataset that we used earlier, “by_main_genre.” But that dataset is a list of dataframes (check out str(by_main_genre) if you want to verify this) and group_by, which we are going to need to use, can’t be used on a list of dataframes. Instead, we need to reformat our data into one single dataframe but keep track of which sets of information were with each nested dataframe previously. To do this, we use bind_rows to create one dataframe and include the arguent .id = “genre” to keep track of which dataframe is which within the now single dataframe we have created.</p>
+<p>You can see below that we are going to start with the dataset that we used earlier, “by_main_genre.” But that dataset is a list of dataframes (check out str(by_main_genre) if you want to verify this) and group_by - which we are going to need to use - can’t be used on a list of dataframes. Instead, we need to reformat our data into one single dataframe but keep track of which sets of information were with each nested dataframe previously. To do this, we use bind_rows to create one dataframe and include the arguent .id = “genre” to keep track of which dataframe is which within the now single dataframe we have created.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 model_comparison_df &lt;- by_main_genre %&gt;% 
@@ -1062,7 +1062,7 @@ head(model_comparison_df)</code></pre>
 6 Crime     &lt;tibble [144 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;  </code></pre>
 </div>
 <h3 id="using-map2-to-conduct-a-model-comparison">Using map2 to conduct a model comparison</h3>
-<p>Now we get to use map2! To run our model comparisons of model 1 compared to model 2 for each genre, we are going to need to use map2. As we did previously, map2 will be put within a mutate() function. The big difference is that now the first two arguments we are providing are the two different inputs we want it to loop through - in this case, m1 and m2 for model1 and model2. The third piece of information we provide is the function we want applied to those inputs - in this instance, anova. By putting this information within mutate(anova_output = map2(m1, m2, anova), we are telling R to create a column in our list that includes the anova output of each of those eleven model comparisons.</p>
+<p>Now we get to use map2 to run our model comparisons of model 1 compared to model 2 for each genre! As we did previously, map2 will be put within a mutate() function. The big difference is that now the first two arguments we are providing are the two different inputs we want it to loop through - in this case, m1 and m2 for model1 and model2. The third piece of information we provide is the function we want applied to those inputs - in this instance, anova. By putting this information within mutate(anova_output = map2(m1, m2, anova), we are telling R to create a column in our list that includes the anova output of each of those eleven model comparisons.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 compare_all &lt;- model_comparison_df %&gt;%
@@ -1080,7 +1080,7 @@ head(compare_all)</code></pre>
 6 Crime     &lt;tibble [144 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;   &lt;df[,6] [2 × 6]&gt;</code></pre>
 </div>
 <h3 id="extracting-information-from-the-model-comparison">Extracting information from the model comparison</h3>
-<p>In order to plot this information later, we might want to use map to extract information from this list of output. Without any data-wrangling, we can already extract the p-value from the list output of the anova model comparisons. We can do this within a mutate and then use map_dbl (because we want this to be a list of numbers). Within that map_dbl, we will tell it to look within the list for each genre within the column labeled “anova_output” and pull out the column labeled “Pr(&gt;F)” within each of those lists.</p>
+<p>In order to plot this information later, we might want to use map to extract information from this list of output. Without any data-wrangling, we can already extract the p-value from the list of anova output from our model comparisons titled “anova_output.” We can do this within a mutate and then use map_dbl (because we want this to be a list of numbers). Within that map_dbl, we will tell it to look within the list for each genre within the column labeled “anova_output” and pull out the column labeled “Pr(&gt;F)” within each of those lists.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 compare_all_tidy &lt;- compare_all %&gt;% 
