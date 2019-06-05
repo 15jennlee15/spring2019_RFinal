@@ -1363,7 +1363,7 @@ mean_function(data$imdb_score)</code></pre>
 </div>
 <p>We called the function using the name we assigned it, supplied the input(our variable), and received the output (our mean) of 6.44!</p>
 <p>Hooray!</p>
-Let’s try another. Let’s find out what the average film duration is.
+<p>Let’s try another. Let’s find out what the average film duration is.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 mean_function(data$duration)</code></pre>
@@ -1394,12 +1394,62 @@ mean_function(data$duration)</code></pre>
 <h3 id="custom-functions">Custom Functions</h3>
 <p>Now that you have some basic function knowledge, let’s take a try at creating some more complex functions. Let’s first try to make a function that is very specific to this dataset. Let’s try something fun. Let’s write a function that will tell us the average imdb score for a given actor!</p>
 <div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+#We first want to pick a meaningful name for our function, so it is clear what it does.  Also what&#39;s the arguements we need to provide to the function?  The actor&#39;s name right?  So we&#39;ll have one formal for this function.
+average_imdb &lt;- function(actor) {
+  #Now the dataset in it&#39;s current form isn&#39;t ideal for this question, but luckily we can change the dataset within   the function.  Notice that nothing is saved to our global environment when we do this, it remains in the function.
+  
+  #There are three columns of actors in the dataset - actor1, 2, and 3.  We will want to gather these all into one      column first. I also used select here to select just the relevant variables
+  df &lt;- data %&gt;%
+    select(actor_1_name, actor_2_name, actor_3_name, imdb_score) %&gt;%
+    gather(number, actor, -imdb_score )
+  #Next, we want to aggregate the data such that when there are multiple instances of an actor, we calculate their overall mean
+    df &lt;- aggregate(imdb_score ~ actor, df, mean)
+ #Next, so that we can call up the actor, we give the rows names of the actors.
+  row.names(df) &lt;- df$actor 
+ #Lastly, we call up the imdb score for the given actor
+ df[actor,&quot;imdb_score&quot;]
+    }
+
+#And that&#39;s our function. So you can see it more clearly, here it is written out without the comments:
+average_imdb &lt;- function(actor) {
+  df &lt;- data %&gt;%
+    select(actor_1_name, actor_2_name, actor_3_name, imdb_score) %&gt;%
+    gather(number, actor, -imdb_score )
+  
+  df &lt;- aggregate(imdb_score ~ actor, df, mean)
+  row.names(df) &lt;- df$actor 
+  
+ df[actor,&quot;imdb_score&quot;]
+    }</code></pre>
+</div>
+<p>Now let’s try the function out!</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+average_imdb(&quot;Tom Cruise&quot;)</code></pre>
 <pre><code>
 [1] 7.013793</code></pre>
+<pre class="r"><code>
+average_imdb(&quot;Johnny Depp&quot;)</code></pre>
 <pre><code>
 [1] 6.736585</code></pre>
+<pre class="r"><code>
+average_imdb(&quot;Will Smith&quot;)</code></pre>
 <pre><code>
 [1] 6.73</code></pre>
+</div>
+<p>Great! This worked, it reported the average imdb for each actor input we gave it.</p>
+<p>Now, what if I misspelled an actor’s name, what would the function to then? Let’s try it.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+average_imdb(&quot;tom cruz&quot;)</code></pre>
+<pre><code>
+[1] NA</code></pre>
+</div>
+<p>The function returned ‘NA’. This makes sense given that there isn’t a ‘tom cruz’ in our list, but that may not be clear to the user of our function. One thing we can do to make our function even more effective, is to add helpful error messages. Let’s try adding a more descriptive error message to our average imdb function.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>
+[1] &quot;This actor is not in our database.  Did you check your spelling?  Make sure to capitalize the first letter of the first and last name&quot;</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <pre><code>
