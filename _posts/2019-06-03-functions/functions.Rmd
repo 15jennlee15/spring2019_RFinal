@@ -28,7 +28,9 @@ data <- data %>%
 In this blog tutorial we will be learning about creating functions in R. To follow along in RStudio you will need the following packages installed and loaded:
 
 -tidyverse
+
 -rio
+
 -here
 
 Furthermore, you will want to download and import the dataset we use here from this site:
@@ -89,6 +91,7 @@ We called the function using the name we assigned it, supplied the input(our var
 Hooray!
 
 Let's try another.  Let's find out what the average film duration is.
+
 ```{r Tryout Functions Number 2, echo=TRUE, error=TRUE}
 mean_function(data$duration)
 
@@ -122,28 +125,82 @@ mean_function2(data$actor_1_facebook_likes, data$actor_2_facebook_likes)
 ```
 The average number of facebook likes is 4,105! Great job!
 
-Now let's try something silly. Let's try to get the mean of color using 'mean_function'
-```{r Mean of Color}
-mean_function(data$color)
+### Custom Functions
+
+Now that you have some basic function knowledge, let's take a try at creating some more complex functions.  Let's first try to make a function that is very specific to this dataset.  Let's try something fun.  Let's write a function that will tell us the average imdb score for a given actor!
+
+```{r Custom Function 1, echo=TRUE}
+#We first want to pick a meaningful name for our function, so it is clear what it does.  Also what's the arguements we need to provide to the function?  The actor's name right?  So we'll have one formal for this function.
+average_imdb <- function(actor) {
+  #Now the dataset in it's current form isn't ideal for this question, but luckily we can change the dataset within   the function.  Notice that nothing is saved to our global environment when we do this, it remains in the function.
+  
+  #There are three columns of actors in the dataset - actor1, 2, and 3.  We will want to gather these all into one      column first. I also used select here to select just the relevant variables
+  df <- data %>%
+    select(actor_1_name, actor_2_name, actor_3_name, imdb_score) %>%
+    gather(number, actor, -imdb_score )
+  #Next, we want to aggregate the data such that when there are multiple instances of an actor, we calculate their overall mean
+    df <- aggregate(imdb_score ~ actor, df, mean)
+ #Next, so that we can call up the actor, we give the rows names of the actors.
+  row.names(df) <- df$actor 
+ #Lastly, we call up the imdb score for the given actor
+ df[actor,"imdb_score"]
+    }
+
+#And that's our function. So you can see it more clearly, here it is written out without the comments:
+average_imdb <- function(actor) {
+  df <- data %>%
+    select(actor_1_name, actor_2_name, actor_3_name, imdb_score) %>%
+    gather(number, actor, -imdb_score )
+  
+  df <- aggregate(imdb_score ~ actor, df, mean)
+  row.names(df) <- df$actor 
+  
+ df[actor,"imdb_score"]
+    }
 
 ```
 
-```{r Custom Function 1}
-#Make a function that tells you the average imdb rating for a specfic actor; this function will only work within this data set
+Now let's try the function out!
 
-average_imdb <- function(x) {
- df <- aggregate(imdb_score ~ actor_1_name, data, mean)
- 
- row.names(df) <- df$actor_1_name 
- 
- df[x,"imdb_score"]
-    }
-
-#Test function, provide actor name in quotes to get their average imdb_score
+```{r Trying out Actor Function, echo=TRUE}
 
 average_imdb("Tom Cruise")
 average_imdb("Johnny Depp")
 average_imdb("Will Smith")
+
+```
+
+Great! This worked, it reported the average imdb for each actor input we gave it.  
+
+Now, what if I misspelled an actor's name, what would the function to then?  Let's try it.
+
+```{r Misspelled Name, echo=TRUE, error=TRUE}
+
+average_imdb("tom cruz")
+```
+The function returned 'NA'.  This makes sense given that there isn't a 'tom cruz' in our list, but that may not be clear to the user of our function.  One thing we can do to make our function even more effective, is to add helpful error messages. Let's try adding a more descriptive error message to our average imdb function.
+
+```{r Helpful Error Messages, eval=TRUE}
+average_imdb <- function(actor) {
+  df <- data %>%
+    select(actor_1_name, actor_2_name, actor_3_name, imdb_score) %>%
+    gather(number, actor, -imdb_score )
+  
+  df <- aggregate(imdb_score ~ actor, df, mean)
+  row.names(df) <- df$actor 
+  
+ name <- df[actor,"imdb_score"]
+ 
+ if(is.na(name)) {
+    return("This actor is not in our database.  Did you check your spelling?  Make sure to capitalize the first letter of the first and last name")
+ }
+ else {
+   return(name)
+ }
+
+}
+
+average_imdb("Tom Crude")
 
 ```
 
