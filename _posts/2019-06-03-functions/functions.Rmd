@@ -113,7 +113,7 @@ Great it worked!  The average film duration is 107 minutes.
 
 Now let's try out our second function. Let's combine the number of facebook likes for actor1 and actor2 and see what the overall average is. But first, let's modify the function to remove missing data.
 
-```{r Testing Out Function 2 Average Number of Facebook Likes}
+```{r Testing Out Function 2 Average Number of Facebook Likes, echo=TRUE}
 #modify the function to exclude missing data
 mean_function2 <- function(variable1, variable2) {
   (mean(variable1, na.rm=TRUE) + mean(variable2, na.rm=TRUE))/2
@@ -263,18 +263,45 @@ Input_if(-4)
 
 Our 'average_imdb' function was fun and worked efficiently, however, that function would only be relevant to that particular dataset.  Let's make a function that is more generalizable and could be used with any dataset.
 
+Let's make a function that outputs descriptives for a given variable.  This is useful and can be used with any dataset that has a numerical variable.  To make the function effective, we should include a meaningful name, useful error messages, and make it genralizable to any dataset.
 
-```{r Custom Function 2}
-#Create a custom function that will pull out descriptive statistics for a variable
+First, we want to think about what descriptives we want the function to output.  Let's go with some standards:  mean, standard deviation, minimum value, maximum value, total number of observations, and number of missing data points.
 
-descriptives <- function(x) {
-  data.frame(mean(x), sd(x), min(x), max(x), length(x))
+We will also want to make sure to account for missing data.
+
+Let's give it a try.
+
+```{r Custom Function 2, echo = TRUE, error = TRUE}
+
+descriptives <- function(variable) {
+  
+  if(!is.numeric(variable)) {
+      stop("Variable supplied is not numeric!", call. = FALSE)
   }
-n_missing = nmiss ,- sum(is.na(x))
+     
+  data.frame(mean = mean(variable, na.rm = TRUE), 
+             std_dev = sd(variable, na.rm = TRUE),
+             min_value = min(variable, na.rm = TRUE),
+             max_value = max(variable, na.rm = TRUE),
+             total_n = length(variable), 
+             missing_data = sum(is.na(variable))) 
+    }
 
 #Test if it works
 descriptives(data$imdb_score)
+
+#Let's make sure our error message works too
+descriptives(data$color)
 ```
+Great! Our function works as expected and it correctly delivers a useful error message! 
+
+### YOU'RE A FUNCTION WIZARD
+
+![](images/wizard.png)
+
+
+
+I hope you enjoyed this brief introduction to functions. There's always more to learn, check out these great resources below:
 
 Additional Resources on Functions:
 

@@ -12,52 +12,7 @@
     "date": "2019-06-04",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-06-04T14:43:24-07:00"
-  },
-  {
-    "path": "posts/2019-06-03-making-and-saving-plots/",
-    "title": "Making and Saving Plots",
-    "description": "This is a tutorial about making and saving plots using parallel iterations",
-    "author": [
-      {
-        "name": "Karlena Ochoa",
-        "url": "https://example.com/norajones"
-      }
-    ],
-    "date": "2019-06-03",
-    "categories": [],
-    "preview": {},
-    "last_modified": "2019-06-04T12:07:12-07:00"
-  },
-  {
-    "path": "posts/2019-06-03-script/",
-    "title": "Script",
-    "description": "A short description of the post.",
-    "author": [
-      {
-        "name": "Nora Jones",
-        "url": "https://example.com/norajones"
-      }
-    ],
-    "date": "2019-06-03",
-    "categories": [],
-    "preview": {},
-    "last_modified": "2019-06-04T12:44:06-07:00"
-  },
-  {
-    "path": "posts/welcome/",
-    "title": "Welcome to My Blog",
-    "description": "Welcome to our new blog, My Blog. We hope you enjoy \nreading what we have to say!",
-    "author": [
-      {
-        "name": "Nora Jones",
-        "url": "https://example.com/norajones"
-      }
-    ],
-    "date": "2019-06-03",
-    "categories": [],
-    "preview": "posts/2019-06-03-making-and-saving-plots/making-and-saving-plots_files/figure-html5/making rsquare plots-1.png",
-    "last_modified": "2019-06-03T13:10:25-07:00"
+    "last_modified": "2019-06-05T10:48:01-07:00"
   },
   {
     "path": "posts/2019-06-03-functions/",
@@ -72,14 +27,51 @@
     "date": "2019-06-03",
     "categories": [],
     "preview": {},
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "last_modified": "2019-06-04T14:25:30-07:00"
-=======
-    "last_modified": "2019-06-04T14:42:42-07:00"
->>>>>>> master
-=======
-    "last_modified": "2019-06-05T09:57:41-07:00"
->>>>>>> master
+    "last_modified": "2019-06-05T13:47:00-07:00"
+  },
+  {
+    "path": "posts/2019-06-03-making-and-saving-plots/",
+    "title": "Making and Saving Plots",
+    "description": "This is a tutorial about making and saving plots using parallel iterations",
+    "author": [
+      {
+        "name": "Karlena Ochoa",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2019-06-03",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-06-03T14:05:09-07:00"
+  },
+  {
+    "path": "posts/2019-06-03-script/",
+    "title": "Script",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Nora Jones",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2019-06-03",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-06-04T14:43:15-07:00"
+  },
+  {
+    "path": "posts/welcome/",
+    "title": "Welcome to My Blog",
+    "description": "Welcome to our new blog, My Blog. We hope you enjoy \nreading what we have to say!",
+    "author": [
+      {
+        "name": "Nora Jones",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2019-06-03",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-06-03T10:48:53-07:00"
   }
 ]
