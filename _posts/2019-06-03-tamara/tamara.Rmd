@@ -36,7 +36,7 @@ data <- data %>%
          profit = gross-budget)
 ```
 
-```{r Custom Function 1}
+```{r Custom Function 1, include= FALSE}
 #Make a function that tells you the average imdb rating for a specfic actor; this function will only work within this data set
 
 average_imdb <- function(x) {
@@ -55,7 +55,7 @@ average_imdb("Will Smith")
 
 ```
 
-```{r Custom Function 2}
+```{r Custom Function 2, include = FALSE}
 #Create a custom function that will pull out descriptive statistics for a variable
 
 descriptives <- function(x) {
@@ -65,6 +65,27 @@ descriptives <- function(x) {
 #Test if it works
 descriptives(data$imdb_score)
 ```
+
+## So, what are we going to do? 
+
+Along this tutorial you will learn how to use the function `map` from the `purrr` library, together with other functions that are useful when working with `map`. 
+
+To do this, we are going  to work with a big movie data set that includes information from more than 5000 movies. For this tutorial, we are going to focus on the following variables: 
+
+* *genres*
+
+* *country* 
+
+* *movie's # of Facebook likes*
+
+* *movie's profit (= gross income - budget)* 
+
+Our main goal will be to see how the # of Facebook likes that a movie has can predict the movie's profit and we want to compare it for the different genres and/or countries of the movies.
+
+## Getting started 
+
+In order to do this, first we'll have to work on our data set to divide the vairables into the different genres or countries. We are going to do this for both genres and countries, have a look at some descriptives and then decide on which one makes more sense to compare the `profit~#FacebookLikes` regressions. 
+
 
 ```{r}
 
