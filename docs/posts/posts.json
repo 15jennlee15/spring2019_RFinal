@@ -1,5 +1,20 @@
 [
   {
+    "path": "posts/2019-06-03-tamara/",
+    "title": "Looping through with purrr::map",
+    "description": "In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements or run regressions",
+    "author": [
+      {
+        "name": "Tamara Niella",
+        "url": "https://www.linkedin.com/in/tniella"
+      }
+    ],
+    "date": "2019-06-09",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-06-09T13:26:09-07:00"
+  },
+  {
     "path": "posts/2019-06-03-model-comparisons-with-map2/",
     "title": "Model Comparisons with map2",
     "description": "This tutorial will take you through how to conduct multiple comparisons using map2.",
