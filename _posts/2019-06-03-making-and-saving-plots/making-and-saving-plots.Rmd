@@ -229,7 +229,7 @@ Ultimately, we decide we want to look at model fit for the two different models,
 
 In order to use pmap to get a separate plot for each genre, we will need to group by Genre and then nest. This will give us two columns - the first genre, and then all the data in a list column called data. This is where we will being pulling information in order to plot them. 
 
-We will us pmap because it will allow us to loop through two or more vectors. In this case we will only be looping through 2, but if we decided to loop through 3 we could add a label for each of the plots. When using pmap you need to first say what the list is; in our case we will put pmap(list(data, genre). Now they are in a list we can refer to them in their position. For example, data can be referred to as ..1 and genre will be ..2. In order to create each plot we will use mutate and save it to "plot". From there we just use ggplot like we regularly would. We will put ..1 as our data input because that says pull from the data list column. 
+We will us pmap because it will allow us to loop through two or more vectors. This is similiar to map2, which we learned in a previous tutorial can loop through two vectors, but pmap has the flexibility to loop through more than two vectors. In this case we will only be looping through 2, but if we decided to loop through 3 we could add a label for each of the plots. When using pmap you need to first say what the list is; in our case we will put pmap(list(data, genre). Now that they are in a list we can refer to them in their position. For example, data can be referred to as ..1 and genre will be ..2. In order to create each plot we will use mutate and save it to "plot". From there we just use ggplot like we regularly would. We will put ..1 as our data input because that says pull from the data list column. 
 
 ```{r making and saving plots, echo = TRUE}
 
@@ -280,7 +280,7 @@ Then we will name all the plots and make sure all the titles are in the same for
 You can check the paths that you created to make sure they are there.
 You do this by just calling `paths`. 
 
-We will use walk2, which is also a parallel iteration, to save the plots to that folder we created. Walk2 is different than other parallel iterations because we are using it for the side effects and not necessarily the value like we do for map2.This is helpful in cases you may want to make a lot of plots and save them to a disk. 
+We will use walk2, which is also a parallel iteration, to save the plots to that folder we created. Walk2 is different than other parallel iterations because we are using it for the side effects and not necessarily the value like we do for map2. This is helpful in cases you may want to make a lot of plots and save them to a disk. 
 
 `walk2(paths, profit_by_genre$plot, ggsave,
       width = 9.5, 

@@ -114,6 +114,8 @@ df_main_genre <- data_new%>%
 
 ```
 
+You'll see in the code above that we used `grepl` when filtering. `grepl` is a base function that looks for patterns in data that is supplied to it, typically outputting a logical vector of `TRUE` and `FALSE`. However, when used in association with `filter`, `grepl` tells filter to look for patterns in (or to exclude in our case) whatever is supplied in the first argument - six genres for us - out of the second argument, the supplied data. In our example, it is looking for any of the genres supplied and is excluding them. `grepl` is helpful when we have so many different things we are telling `filter` to look for, as it helps exclude repetitive code when filter (e.g., filter != 'Thriller`| filter != 'Western' and so on).
+
 Now let's map through the list to run a regression predicting profit from number of facebook likes for the movie 
 
 ```{r}

@@ -49,7 +49,7 @@
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["functions_files/bowser-1.9.3/bowser.min.js","functions_files/distill-2.2.21/template.v2.js","functions_files/jquery-1.11.3/jquery.min.js","functions_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["functions_files/bowser-1.9.3/bowser.min.js","functions_files/distill-2.2.21/template.v2.js","functions_files/jquery-1.11.3/jquery.min.js","functions_files/webcomponents-2.0.0/webcomponents.js","images/wizard.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1037,6 +1037,14 @@ mean_function(data$duration)</code></pre>
 <p>Great it worked! The average film duration is 107 minutes.</p>
 <p>Now let’s try out our second function. Let’s combine the number of facebook likes for actor1 and actor2 and see what the overall average is. But first, let’s modify the function to remove missing data.</p>
 <div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+#modify the function to exclude missing data
+mean_function2 &lt;- function(variable1, variable2) {
+  (mean(variable1, na.rm=TRUE) + mean(variable2, na.rm=TRUE))/2
+}
+
+#Remember we have to provide two variables for our second function
+mean_function2(data$actor_1_facebook_likes, data$actor_2_facebook_likes)</code></pre>
 <pre><code>
 [1] 4105.901</code></pre>
 </div>
@@ -1096,16 +1104,116 @@ average_imdb(&quot;tom cruz&quot;)</code></pre>
 <pre><code>
 [1] NA</code></pre>
 </div>
-<p>The function returned ‘NA’. This makes sense given that there isn’t a ‘tom cruz’ in our list, but that may not be clear to the user of our function. One thing we can do to make our function even more effective, is to add helpful error messages. Let’s try adding a more descriptive error message to our average imdb function.</p>
+<p>The function returned ‘NA’. This makes sense given that there isn’t a ‘tom cruz’ in our list, but that may not be clear to the user of our function. One thing we can do to make our function even more effective is to add helpful messages, warnings, and errors. Let’s try adding a more descriptive return message to our average imdb function when we receive ‘NA’.</p>
 <div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+average_imdb &lt;- function(actor) {
+  df &lt;- data %&gt;%
+    select(actor_1_name, actor_2_name, actor_3_name, imdb_score) %&gt;%
+    gather(number, actor, -imdb_score )
+  
+  df &lt;- aggregate(imdb_score ~ actor, df, mean)
+  row.names(df) &lt;- df$actor 
+  
+ name &lt;- df[actor,&quot;imdb_score&quot;]
+ #We can add &#39;if&#39; statements to our functions to add conditions to our function. See more below.
+ if(is.na(name)) {
+    return(&quot;This actor is not in our database.  Did you check your spelling?  Make sure to capitalize the first letter of the first and last name&quot;)
+ }
+ else {
+   return(name)
+ }
+
+}
+
+average_imdb(&quot;Tom Crude&quot;)</code></pre>
 <pre><code>
 [1] &quot;This actor is not in our database.  Did you check your spelling?  Make sure to capitalize the first letter of the first and last name&quot;</code></pre>
 </div>
+<p>This time we receive not ‘NA’ but a helpful message that tells us that our name is not in the database or that we misspelled it.</p>
+<h3 id="if-statements">IF Statements</h3>
+<p>In the previous case, we included a conditional return message, but you can also provide custom messages, warnings, and errors. To create a custom error, you will enter the conditional information, and use ‘stop’ instead or ‘return’. Stop ‘stops’ the function and outputs the error.</p>
+<p>if(what is the condition) { stop(&quot;Error Message) }</p>
+<p>Warning is very similar, except you’d use ‘warning’ instead or ‘stop’. In this case the function won’t stop running, put will provide the output as well as the error message.</p>
+<p>if(conditional statement) { warning(“warning message”) }</p>
+<p>We do this by adding ‘If’ statements within our function. If staements provide conditions through which the function operates differentially given certain circumstances. In the case above, we created an ‘If’ statement that was based on the output we received. You could also create ‘If’ statements that affect how the input is dealt with. For example:</p>
 <div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+Input_if &lt;- function(number) {
+  if(number &gt;= 0) {
+    number * 5
+  }
+  if(number &lt; 0) {
+    abs(number) * 5
+  }
+}
+
+#Try it out
+Input_if(4)
+
+Input_if(-4)</code></pre>
 <pre><code>
-   mean.x.    sd.x. min.x. max.x. length.x.
-1 6.442138 1.125116    1.6    9.5      5043</code></pre>
+[1] 20</code></pre>
 </div>
+<p>In our example function above, we used ‘if’ statements to make it so the function performed differently if the input(a number) was greater than or less than 0.</p>
+<p>You can use as many ‘if’ statements as you’d like in a function. You can also use ‘else’ if you want the function to perform one way for a given condition but respond another way given any other input that doesn’t match that condition. For example, instead of using two ‘if’ statements in our function above, we could have used ‘else’.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+Input_if &lt;- function(number) {
+  if(number &gt;= 0) {
+    number * 5
+  }
+  else {
+    abs(number) * 5
+  }
+}
+
+#Try it out
+Input_if(4)</code></pre>
+<pre><code>
+[1] 20</code></pre>
+<pre class="r"><code>
+Input_if(-4)</code></pre>
+<pre><code>
+[1] 20</code></pre>
+</div>
+<h3 id="more-on-custom-functions">More on Custom Functions</h3>
+<p>Our ‘average_imdb’ function was fun and worked efficiently, however, that function would only be relevant to that particular dataset. Let’s make a function that is more generalizable and could be used with any dataset.</p>
+<p>Let’s make a function that outputs descriptives for a given variable. This is useful and can be used with any dataset that has a numerical variable. To make the function effective, we should include a meaningful name, useful error messages, and make it genralizable to any dataset.</p>
+<p>First, we want to think about what descriptives we want the function to output. Let’s go with some standards: mean, standard deviation, minimum value, maximum value, total number of observations, and number of missing data points.</p>
+<p>We will also want to make sure to account for missing data.</p>
+<p>Let’s give it a try.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+descriptives &lt;- function(variable) {
+  
+  if(!is.numeric(variable)) {
+      stop(&quot;Variable supplied is not numeric!&quot;, call. = FALSE)
+  }
+     
+  data.frame(mean = mean(variable, na.rm = TRUE), 
+             std_dev = sd(variable, na.rm = TRUE),
+             min_value = min(variable, na.rm = TRUE),
+             max_value = max(variable, na.rm = TRUE),
+             total_n = length(variable), 
+             missing_data = sum(is.na(variable))) 
+    }
+
+#Test if it works
+descriptives(data$imdb_score)</code></pre>
+<pre><code>
+      mean  std_dev min_value max_value total_n missing_data
+1 6.442138 1.125116       1.6       9.5    5043            0</code></pre>
+<pre class="r"><code>
+#Let&#39;s make sure our error message works too
+descriptives(data$color)</code></pre>
+<pre><code>
+Error: Variable supplied is not numeric!</code></pre>
+</div>
+<p>Great! Our function works as expected and it correctly delivers a useful error message!</p>
+<h3 id="youre-a-function-wizard">YOU’RE A FUNCTION WIZARD</h3>
+<p><img src="images/wizard.png" /></p>
+<p>I hope you enjoyed this brief introduction to functions. There’s always more to learn, check out these great resources below:</p>
 <p>Additional Resources on Functions:</p>
 <p><a href="https://adv-r.hadley.nz/functions.html#function-fundamentals" class="uri">https://adv-r.hadley.nz/functions.html#function-fundamentals</a></p>
 <p><a href="https://swcarpentry.github.io/r-novice-inflammation/02-func-R/" class="uri">https://swcarpentry.github.io/r-novice-inflammation/02-func-R/</a></p>

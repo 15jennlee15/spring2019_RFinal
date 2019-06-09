@@ -12,7 +12,22 @@
     "date": "2019-06-04",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-06-04T14:43:24-07:00"
+    "last_modified": "2019-06-05T16:30:47-07:00"
+  },
+  {
+    "path": "posts/2019-06-03-functions/",
+    "title": "Functions",
+    "description": "A quick tutorial on functions and creating custom functions",
+    "author": [
+      {
+        "name": "Jenn Lewis",
+        "url": "https://github.com/15jennlee15"
+      }
+    ],
+    "date": "2019-06-03",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-06-05T13:47:00-07:00"
   },
   {
     "path": "posts/2019-06-03-functions/",
@@ -42,7 +57,11 @@
     "date": "2019-06-03",
     "categories": [],
     "preview": {},
+<<<<<<< HEAD
     "last_modified": "2019-06-03T13:10:25-07:00"
+=======
+    "last_modified": "2019-06-03T14:05:09-07:00"
+>>>>>>> master
   },
   {
     "path": "posts/2019-06-03-script/",
@@ -57,7 +76,11 @@
     "date": "2019-06-03",
     "categories": [],
     "preview": {},
+<<<<<<< HEAD
     "last_modified": "2019-06-05T10:00:59-07:00"
+=======
+    "last_modified": "2019-06-04T14:43:15-07:00"
+>>>>>>> master
   },
   {
     "path": "posts/welcome/",
@@ -72,14 +95,6 @@
     "date": "2019-06-03",
     "categories": [],
     "preview": {},
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "last_modified": "2019-06-04T14:25:30-07:00"
-=======
-    "last_modified": "2019-06-04T14:42:42-07:00"
->>>>>>> master
-=======
-    "last_modified": "2019-06-05T09:57:41-07:00"
->>>>>>> master
+    "last_modified": "2019-06-03T10:48:53-07:00"
   }
 ]

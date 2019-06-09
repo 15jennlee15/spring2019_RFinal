@@ -43,7 +43,8 @@ Description of data:
 
 ### What's a Function?
 
-What is a function? Very simply, a function is a block of reusable code that is used to perform an action.  
+What is a function? Very simply, a function is a block of reusable code that is used to perform an action. 
+
 In R, we can store a function as an object and thus be able to recall the function repeatedly and perform an operation (or several) very quickly and easily with a single command.  Let's break it down a little bit more.
 
 Here's an example of a function
@@ -54,14 +55,14 @@ mean_function <- function(variable) {
 }
 
 ```
-First by using the "<-" we are assigning the function to an object name.  Note that the name of the function is meaningful, that is, we can guess what it does by it's name. This is important as if you create a lot of functions, you may loose track of the purpose of each, furthermore, it helps make your code more readable to others.
+First by using the "<-" we are assigning the function to an object name.  Note that the name of the function is meaningful, that is, we can guess what it does by it's name. This is important if you create a lot of functions, as you may loose track of the purpose of each. Furthermore, it helps make your code more readable to others.
 
 Our example function is very simple, it calculates the mean of a variable.  Now, we could just do this with mean(variable), but I wanted to use a simple example for our first function. The input to this function would be a variable, the output would be the mean of that variable.  You can test this example function by entering different variables from our dataset.
 
 Next, a function is composed of three parts:
 
-1) *Body*: this is the code inside the function (inside the curly brackets {})
-    In our example, the 'body' is the part within the curly brackets, in this case:  mean(variable)
+1) *Body*: this is the code inside the function (inside the curly brackets {}).
+    In our example, the 'body' is the part within the curly brackets, in this case:  mean(variable).
     
 2) *Formals*: these are the arguements supplied to the function - controls how we can call the function
     In our example, the formal, the arguement we supply to the function, is 'variable'. The formals are listed in       the parantheses right after function.  Your function can have multiple formals. 
@@ -113,7 +114,7 @@ Great it worked!  The average film duration is 107 minutes.
 
 Now let's try out our second function. Let's combine the number of facebook likes for actor1 and actor2 and see what the overall average is. But first, let's modify the function to remove missing data.
 
-```{r Testing Out Function 2 Average Number of Facebook Likes}
+```{r Testing Out Function 2 Average Number of Facebook Likes, echo=TRUE}
 #modify the function to exclude missing data
 mean_function2 <- function(variable1, variable2) {
   (mean(variable1, na.rm=TRUE) + mean(variable2, na.rm=TRUE))/2
@@ -172,7 +173,7 @@ average_imdb("Will Smith")
 
 Great! This worked, it reported the average imdb for each actor input we gave it.  
 
-Now, what if I misspelled an actor's name, what would the function to then?  Let's try it.
+Now, what if I misspelled an actor's name, what would the function do then?  Let's try it.
 
 ```{r Misspelled Name, echo=TRUE, error=TRUE}
 
@@ -220,7 +221,7 @@ if(conditional statement) {
   warning("warning message")
 }
 
-We do this by adding 'If' statements within our function.  If staements provide conditions through which the function operates differentially given certain circumstances.  In the case above, we created an 'If' statement that was based on the output we received.  You could also create 'If' statements that affect how the input is dealt with. For example:
+We do this by adding 'If' statements within our function.  If statements provide conditions through which the function operates differentially given certain circumstances.  In the case above, we created an 'If' statement that was based on the output we received.  You could also create 'If' statements that affect how the input is dealt with. For example:
 
 ```{r Example If Statement for Input, echo=TRUE}
 Input_if <- function(number) {
@@ -241,17 +242,67 @@ Input_if(-4)
 In our example function above, we used 'if' statements to make it so the function performed differently if the input(a number) was greater than or less than 0.  
 
 You can use as many 'if' statements as you'd like in a function. You can also use 'else' if you want the function to perform one way for a given condition but respond another way given any other input that doesn't match that condition. For example, instead of using two 'if' statements in our function above, we could have used 'else'.
-```{r Custom Function 2}
-#Create a custom function that will pull out descriptive statistics for a variable
 
-descriptives <- function(x) {
-  data.frame(mean(x), sd(x), min(x), max(x), length(x))
+```{r Example Statement with Else, echo=TRUE}
+Input_if <- function(number) {
+  if(number >= 0) {
+    number * 5
   }
-n_missing = nmiss ,- sum(is.na(x))
+  else {
+    abs(number) * 5
+  }
+}
+
+#Try it out
+Input_if(4)
+
+Input_if(-4)
+
+```
+
+### More on Custom Functions
+
+Our 'average_imdb' function was fun and worked efficiently, however, that function would only be relevant to that particular dataset.  Let's make a function that is more generalizable and could be used with any dataset.
+
+Let's make a function that outputs descriptives for a given variable.  This is useful and can be used with any dataset that has a numerical variable.  To make the function effective, we should include a meaningful name, useful error messages, and make it generalizable to any dataset.
+
+First, we want to think about what descriptives we want the function to output.  Let's go with some standards:  mean, standard deviation, minimum value, maximum value, total number of observations, and number of missing data points.
+
+We will also want to make sure to account for missing data.
+
+Let's give it a try.
+
+```{r Custom Function 2, echo = TRUE, error = TRUE}
+
+descriptives <- function(variable) {
+  
+  if(!is.numeric(variable)) {
+      stop("Variable supplied is not numeric!", call. = FALSE)
+  }
+     
+  data.frame(mean = mean(variable, na.rm = TRUE), 
+             std_dev = sd(variable, na.rm = TRUE),
+             min_value = min(variable, na.rm = TRUE),
+             max_value = max(variable, na.rm = TRUE),
+             total_n = length(variable), 
+             missing_data = sum(is.na(variable))) 
+    }
 
 #Test if it works
 descriptives(data$imdb_score)
+
+#Let's make sure our error message works too
+descriptives(data$color)
 ```
+Great! Our function works as expected and it correctly delivers a useful error message! 
+
+### YOU'RE A FUNCTION WIZARD
+
+![](images/wizard.png)
+
+
+
+I hope you enjoyed this brief introduction to functions. There's always more to learn, check out these great resources below:
 
 Additional Resources on Functions:
 
