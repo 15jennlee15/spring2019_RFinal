@@ -19,32 +19,32 @@
  <!--/radix_placeholder_import_source-->
 
   <!--radix_placeholder_meta_tags-->
-  <title>Making and Saving Plots</title>
+  <title>Tutorial 4: Making and Saving Plots</title>
   
   <meta property="description" itemprop="description" content="This is a tutorial about making and saving plots using parallel iterations"/>
   
   
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2019-06-03"/>
-  <meta property="article:created" itemprop="dateCreated" content="2019-06-03"/>
+  <meta property="article:published" itemprop="datePublished" content="2019-05-11"/>
+  <meta property="article:created" itemprop="dateCreated" content="2019-05-11"/>
   <meta name="article:author" content="Karlena Ochoa"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Making and Saving Plots"/>
+  <meta property="og:title" content="Tutorial 4: Making and Saving Plots"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="This is a tutorial about making and saving plots using parallel iterations"/>
   <meta property="og:locale" content="en_US"/>
   
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Making and Saving Plots"/>
+  <meta property="twitter:title" content="Tutorial 4: Making and Saving Plots"/>
   <meta property="twitter:description" content="This is a tutorial about making and saving plots using parallel iterations"/>
   
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Making and Saving Plots"]},{"type":"character","attributes":{},"value":["This is a tutorial about making and saving plots using parallel iterations\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Karlena Ochoa"]},{"type":"character","attributes":{},"value":["https://example.com/norajones"]}]}]},{"type":"character","attributes":{},"value":["06-03-2019"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Tutorial 4: Making and Saving Plots"]},{"type":"character","attributes":{},"value":["This is a tutorial about making and saving plots using parallel iterations\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Karlena Ochoa"]}]}]},{"type":"character","attributes":{},"value":["05-11-2019"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -942,7 +942,7 @@
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Making and Saving Plots","description":"This is a tutorial about making and saving plots using parallel iterations","authors":[{"author":"Karlena Ochoa","authorURL":"https://example.com/norajones","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2019-06-03T00:00:00.000-07:00","citationText":"Ochoa, 2019"}
+{"title":"Tutorial 4: Making and Saving Plots","description":"This is a tutorial about making and saving plots using parallel iterations","authors":[{"author":"Karlena Ochoa","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2019-05-11T00:00:00.000-07:00","citationText":"Ochoa, 2019"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -952,18 +952,19 @@
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Making and Saving Plots</h1>
+<h1>Tutorial 4: Making and Saving Plots</h1>
 <p>This is a tutorial about making and saving plots using parallel iterations</p>
 </div>
 
 <div class="d-byline">
-  Karlena Ochoa <a href="https://example.com/norajones" class="uri">https://example.com/norajones</a> 
+  Karlena Ochoa  
   
-<br/>06-03-2019
+<br/>05-11-2019
 </div>
 
 <div class="d-article">
-<p>Now that we have our data in tidy format we can plot the r-square for each model by Genre. We use model (model 1 and 2) as our x-axis and r-square on the y-axis. We can use facet-wrap to create a plot for each genre side by side. We aren’t going to worry about making it look pretty right now, we just want to get an idea of what it looks like. For example, it looks like our model fits well for Animation and Documentaries, but not so well for Action, Comedy, Crime.</p>
+<h3 id="making-plots">Making Plots</h3>
+<p>Now that we’ve down our model comparisons using map2 and selected variables we need, we can plot the r-square for each model by Genre. We use model (model 1 and 2) as our x-axis and r-square on the y-axis. We can use facet-wrap to create a plot for each genre side by side. We aren’t going to worry about making it look pretty right now, we just want to get an idea of what it looks like. For example, it looks like our model fits well for Animation and Documentaries, but not so well for Action, Comedy, Crime.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 #show r-square for both models in one plot for all genres
@@ -978,9 +979,10 @@ rsquare_plots</code></pre>
 <p><img src="making-and-saving-plots_files/figure-html5/making%20rsquare%20plots-1.png" width="624" /></p>
 </div>
 <p>Now say that we are interested in seeing the coefficients plotted for each model we can use <code>gather</code>, <code>select</code>, <code>mutate</code>, and <code>unnest</code> to get it in the format we need for plotting. We use <code>unnest</code> at the end to get the data out of the list column format.</p>
+<h3 id="pmap">Pmap</h3>
 <p>Ultimately, we decide we want to look at model fit for the two different models, model 1 looking at Facebook likes predicting profit and model 2 looking at Facebook likes and IMDB score predicting profit. We will use <code>pmap</code> to prepare the data.</p>
 <p>In order to use pmap to get a separate plot for each genre, we will need to group by Genre and then nest. This will give us two columns - the first genre, and then all the data in a list column called data. This is where we will being pulling information in order to plot them.</p>
-<p>We will us pmap because it will allow us to loop through two or more vectors. In this case we will only be looping through 2, but if we decided to loop through 3 we could add a label for each of the plots. When using pmap you need to first say what the list is; in our case we will put pmap(list(data, genre). Now they are in a list we can refer to them in their position. For example, data can be referred to as ..1 and genre will be ..2. In order to create each plot we will use mutate and save it to “plot”. From there we just use ggplot like we regularly would. We will put ..1 as our data input because that says pull from the data list column.</p>
+<p>We will us pmap because it will allow us to loop through two or more vectors. This is similiar to map2, which we learned in a previous tutorial can loop through two vectors, but pmap has the flexibility to loop through more than two vectors. In this case we will only be looping through 2, but if we decided to loop through 3 we could add a label for each of the plots. When using pmap you need to first say what the list is; in our case we will put pmap(list(data, genre). Now that they are in a list we can refer to them in their position. For example, data can be referred to as ..1 and genre will be ..2. In order to create each plot we will use mutate and save it to “plot”. From there we just use ggplot like we regularly would. We will put ..1 as our data input because that says pull from the data list column.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 #plot genres separately
@@ -1021,11 +1023,11 @@ profit_by_genre$plot[[6]]</code></pre>
 </div>
 <p>In order to save the plots we need to create a directory. We are going to make a folder called “plots” with a subfolder called “profit_by_genre”</p>
 <p>Create directory (folder) for plots</p>
-<p><code>fs::dir_create(here::here("plots", "profit_by_genre"))</code></p>
+<p><code>fs::dir_create(here::here(&quot;plots&quot;, &quot;profit_by_genre&quot;))</code></p>
 <p>Then we will name all the plots and make sure all the titles are in the same format. We will call them by their genre.</p>
-<p><code>files &lt;- str_replace_all(tolower(profit_by_genre$genre), " ", "-")</code> <code>paths &lt;- here::here("plots", "profit_by_genre", glue("{files}.png"))</code></p>
+<p><code>files &lt;- str_replace_all(tolower(profit_by_genre$genre), &quot; &quot;, &quot;-&quot;)</code> <code>paths &lt;- here::here(&quot;plots&quot;, &quot;profit_by_genre&quot;, glue(&quot;{files}.png&quot;))</code></p>
 <p>You can check the paths that you created to make sure they are there. You do this by just calling <code>paths</code>.</p>
-<p>We will use walk2, which is also a parallel iteration, to save the plots to that folder we created. Walk2 is different than other parallel iterations because we are using it for the side effects and not necessarily the value like we do for map2.This is helpful in cases you may want to make a lot of plots and save them to a disk.</p>
+<p>We will use walk2, which is also a parallel iteration, to save the plots to that folder we created. Walk2 is different than other parallel iterations because we are using it for the side effects and not necessarily the value like we do for map2. This is helpful in cases you may want to make a lot of plots and save them to a disk.</p>
 <p><code>walk2(paths, profit_by_genre$plot, ggsave,       width = 9.5,        height = 6.5,       dpi = 500)</code></p>
 <p><em>Thanks for following along, we hope you enjoyed our tutorial! </em></p>
 <!--radix_placeholder_article_footer-->

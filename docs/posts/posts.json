@@ -1,8 +1,8 @@
 [
   {
     "path": "posts/2019-06-03-tamara/",
-    "title": "Looping through with purrr::map",
-    "description": "In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements or run regressions",
+    "title": "Tutorial 2: Looping through with purrr::map",
+    "description": "In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements, or run regressions.",
     "author": [
       {
         "name": "Tamara Niella",
@@ -12,7 +12,11 @@
     "date": "2019-06-09",
     "categories": [],
     "preview": {},
+<<<<<<< Updated upstream
     "last_modified": "2019-06-10T10:07:19-07:00"
+=======
+    "last_modified": "2019-06-10T10:28:25-07:00"
+>>>>>>> Stashed changes
   },
   {
     "path": "posts/2019-06-03-model-comparisons-with-map2/",
@@ -27,11 +31,11 @@
     "date": "2019-06-04",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-06-10T10:24:20-07:00"
+    "last_modified": "2019-06-10T10:25:23-07:00"
   },
   {
     "path": "posts/2019-06-03-functions/",
-    "title": "Functions",
+    "title": "Tutorial 1: Creating Functions",
     "description": "A quick tutorial on functions and creating custom functions",
     "author": [
       {
@@ -42,22 +46,30 @@
     "date": "2019-06-03",
     "categories": [],
     "preview": {},
+<<<<<<< Updated upstream
     "last_modified": "2019-06-05T13:47:00-07:00"
+=======
+    "last_modified": "2019-06-10T10:28:55-07:00"
+>>>>>>> Stashed changes
   },
   {
     "path": "posts/2019-06-03-making-and-saving-plots/",
-    "title": "Making and Saving Plots",
+    "title": "Tutorial 4: Making and Saving Plots",
     "description": "This is a tutorial about making and saving plots using parallel iterations",
     "author": [
       {
         "name": "Karlena Ochoa",
-        "url": "https://example.com/norajones"
+        "url": {}
       }
     ],
-    "date": "2019-06-03",
+    "date": "2019-05-11",
     "categories": [],
     "preview": {},
+<<<<<<< Updated upstream
     "last_modified": "2019-06-03T14:05:09-07:00"
+=======
+    "last_modified": "2019-06-10T10:28:42-07:00"
+>>>>>>> Stashed changes
   },
   {
     "path": "posts/welcome/",
@@ -72,6 +84,6 @@
     "date": "2019-05-03",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-06-10T10:18:03-07:00"
+    "last_modified": "2019-06-10T10:27:52-07:00"
   }
 ]

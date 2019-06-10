@@ -19,9 +19,9 @@
  <!--/radix_placeholder_import_source-->
 
   <!--radix_placeholder_meta_tags-->
-<title>My Blog: Looping through with purrr::map</title>
+<title>My Blog: Tutorial 2: Looping through with purrr::map</title>
 
-<meta property="description" itemprop="description" content="In this tutorial we&#39;ll learn how to use map to avoid repetitive code and loop through lists to extract elements or run regressions"/>
+<meta property="description" itemprop="description" content="In this tutorial we&#39;ll learn how to use map to avoid repetitive code and loop through lists to extract elements, or run regressions."/>
 
 
 <!--  https://schema.org/Article -->
@@ -30,22 +30,22 @@
 <meta name="article:author" content="Tamara Niella"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="My Blog: Looping through with purrr::map"/>
+<meta property="og:title" content="My Blog: Tutorial 2: Looping through with purrr::map"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="In this tutorial we&#39;ll learn how to use map to avoid repetitive code and loop through lists to extract elements or run regressions"/>
+<meta property="og:description" content="In this tutorial we&#39;ll learn how to use map to avoid repetitive code and loop through lists to extract elements, or run regressions."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="My Blog"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
-<meta property="twitter:title" content="My Blog: Looping through with purrr::map"/>
-<meta property="twitter:description" content="In this tutorial we&#39;ll learn how to use map to avoid repetitive code and loop through lists to extract elements or run regressions"/>
+<meta property="twitter:title" content="My Blog: Tutorial 2: Looping through with purrr::map"/>
+<meta property="twitter:description" content="In this tutorial we&#39;ll learn how to use map to avoid repetitive code and loop through lists to extract elements, or run regressions."/>
 
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Looping through with purrr::map"]},{"type":"character","attributes":{},"value":["In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements or run regressions"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Tamara Niella"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/tniella"]}]}]},{"type":"character","attributes":{},"value":["06-09-2019"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Tutorial 2: Looping through with purrr::map"]},{"type":"character","attributes":{},"value":["In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements, or run regressions."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Tamara Niella"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/tniella"]}]}]},{"type":"character","attributes":{},"value":["06-09-2019"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1280,7 +1280,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Looping through with purrr::map","description":"In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements or run regressions","authors":[{"author":"Tamara Niella","authorURL":"https://www.linkedin.com/in/tniella","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2019-06-09T00:00:00.000-07:00","citationText":"Niella, 2019"}
+{"title":"Tutorial 2: Looping through with purrr::map","description":"In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements, or run regressions.","authors":[{"author":"Tamara Niella","authorURL":"https://www.linkedin.com/in/tniella","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2019-06-09T00:00:00.000-07:00","citationText":"Niella, 2019"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1302,8 +1302,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Looping through with purrr::map</h1>
-<p><p>In this tutorial we’ll learn how to use map to avoid repetitive code and loop through lists to extract elements or run regressions</p></p>
+<h1>Tutorial 2: Looping through with purrr::map</h1>
+<p>In this tutorial we’ll learn how to use map to avoid repetitive code and loop through lists to extract elements, or run regressions.</p>
 </div>
 
 <div class="d-byline">
@@ -1340,9 +1340,9 @@ slice(head(df_genre), 1:3)</code></pre>
 # A tibble: 3 x 2
   genres                          data              
   &lt;chr&gt;                           &lt;list&gt;            
-1 Action|Adventure|Fantasy|Sci-Fi &lt;tibble [12 x 28]&gt;
-2 Action|Adventure|Fantasy        &lt;tibble [25 x 28]&gt;
-3 Action|Adventure|Thriller       &lt;tibble [45 x 28]&gt;</code></pre>
+1 Action|Adventure|Fantasy|Sci-Fi &lt;tibble [12 × 28]&gt;
+2 Action|Adventure|Fantasy        &lt;tibble [25 × 28]&gt;
+3 Action|Adventure|Thriller       &lt;tibble [45 × 28]&gt;</code></pre>
 <pre class="r"><code>
 # let&#39;s nest our data by country 
 
@@ -1356,9 +1356,9 @@ slice(head(df_country), 1:3)</code></pre>
 # A tibble: 3 x 2
   country     data                 
   &lt;chr&gt;       &lt;list&gt;               
-1 USA         &lt;tibble [3,005 x 28]&gt;
-2 UK          &lt;tibble [322 x 28]&gt;  
-3 New Zealand &lt;tibble [11 x 28]&gt;   </code></pre>
+1 USA         &lt;tibble [3,005 × 28]&gt;
+2 UK          &lt;tibble [322 × 28]&gt;  
+3 New Zealand &lt;tibble [11 × 28]&gt;   </code></pre>
 </div>
 <p>So far, country seems like it could to be a more reasonable grouping variable to work with because in genres there seems to be a lot of combinations of different genres.</p>
 <p>But let’s take a look at the number of observations per group for the two different categories. To do this, what we need to do is to go row by row in the new nested data set and get the length of the tibble under the column “data” for each row (ie. each genre combination/ country).</p>
@@ -1591,6 +1591,16 @@ Coefficients:
 
 
 [[10]]
+
+Call:
+lm(formula = profit ~ movie_facebook_likes, data = .x)
+
+Coefficients:
+         (Intercept)  movie_facebook_likes  
+           2.959e+07             1.363e+02  
+
+
+[[11]]
 
 Call:
 lm(formula = profit ~ movie_facebook_likes, data = .x)

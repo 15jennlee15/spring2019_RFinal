@@ -1402,14 +1402,14 @@ model_comparison_df &lt;- by_main_genre %&gt;%
 head(model_comparison_df)</code></pre>
 <pre><code>
 # A tibble: 6 x 4
-  genre     data                m1       m2      
-  &lt;chr&gt;     &lt;list&gt;              &lt;list&gt;   &lt;list&gt;  
-1 Action    &lt;tibble [492 × 29]&gt; &lt;S3: lm&gt; &lt;S3: lm&gt;
-2 Adventure &lt;tibble [223 × 29]&gt; &lt;S3: lm&gt; &lt;S3: lm&gt;
-3 Animation &lt;tibble [25 × 29]&gt;  &lt;S3: lm&gt; &lt;S3: lm&gt;
-4 Biography &lt;tibble [105 × 29]&gt; &lt;S3: lm&gt; &lt;S3: lm&gt;
-5 Comedy    &lt;tibble [537 × 29]&gt; &lt;S3: lm&gt; &lt;S3: lm&gt;
-6 Crime     &lt;tibble [144 × 29]&gt; &lt;S3: lm&gt; &lt;S3: lm&gt;</code></pre>
+  genre     data                m1     m2    
+  &lt;chr&gt;     &lt;list&gt;              &lt;list&gt; &lt;list&gt;
+1 Action    &lt;tibble [492 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;  
+2 Adventure &lt;tibble [223 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;  
+3 Animation &lt;tibble [25 × 29]&gt;  &lt;lm&gt;   &lt;lm&gt;  
+4 Biography &lt;tibble [105 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;  
+5 Comedy    &lt;tibble [537 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;  
+6 Crime     &lt;tibble [144 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;  </code></pre>
 </div>
 <h3 id="using-map2-to-conduct-a-model-comparison">Using map2 to conduct a model comparison</h3>
 <p>Now we get to use <code>map2</code> to run our model comparisons of model 1 compared to model 2 for each genre! As we did previously, <code>map2</code> will be put within a <code>mutate()</code> function. The big difference is that now the first two arguments we are providing are the two different inputs we want it to loop through - in this case, m1 and m2 for model1 and model2. The third piece of information we provide is the function we want applied to those inputs - in this instance, <code>anova</code>. By putting this information within <code>mutate(anova_output = map2(m1, m2, anova)</code>, we are telling R to create a column in our list that includes the anova output of each of those eleven model comparisons.</p>
@@ -1420,14 +1420,14 @@ compare_all &lt;- model_comparison_df %&gt;%
 head(compare_all)</code></pre>
 <pre><code>
 # A tibble: 6 x 5
-  genre     data                m1       m2       anova_output   
-  &lt;chr&gt;     &lt;list&gt;              &lt;list&gt;   &lt;list&gt;   &lt;list&gt;         
-1 Action    &lt;tibble [492 × 29]&gt; &lt;S3: lm&gt; &lt;S3: lm&gt; &lt;anova [2 × 6]&gt;
-2 Adventure &lt;tibble [223 × 29]&gt; &lt;S3: lm&gt; &lt;S3: lm&gt; &lt;anova [2 × 6]&gt;
-3 Animation &lt;tibble [25 × 29]&gt;  &lt;S3: lm&gt; &lt;S3: lm&gt; &lt;anova [2 × 6]&gt;
-4 Biography &lt;tibble [105 × 29]&gt; &lt;S3: lm&gt; &lt;S3: lm&gt; &lt;anova [2 × 6]&gt;
-5 Comedy    &lt;tibble [537 × 29]&gt; &lt;S3: lm&gt; &lt;S3: lm&gt; &lt;anova [2 × 6]&gt;
-6 Crime     &lt;tibble [144 × 29]&gt; &lt;S3: lm&gt; &lt;S3: lm&gt; &lt;anova [2 × 6]&gt;</code></pre>
+  genre     data                m1     m2     anova_output    
+  &lt;chr&gt;     &lt;list&gt;              &lt;list&gt; &lt;list&gt; &lt;list&gt;          
+1 Action    &lt;tibble [492 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;   &lt;df[,6] [2 × 6]&gt;
+2 Adventure &lt;tibble [223 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;   &lt;df[,6] [2 × 6]&gt;
+3 Animation &lt;tibble [25 × 29]&gt;  &lt;lm&gt;   &lt;lm&gt;   &lt;df[,6] [2 × 6]&gt;
+4 Biography &lt;tibble [105 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;   &lt;df[,6] [2 × 6]&gt;
+5 Comedy    &lt;tibble [537 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;   &lt;df[,6] [2 × 6]&gt;
+6 Crime     &lt;tibble [144 × 29]&gt; &lt;lm&gt;   &lt;lm&gt;   &lt;df[,6] [2 × 6]&gt;</code></pre>
 </div>
 <h3 id="extracting-information-from-the-model-comparison">Extracting information from the model comparison</h3>
 <p>In order to plot this information later, we might want to use <code>map</code> to extract information from this list of output. Without any data-wrangling, we can already extract the p-value from the list of <code>anova</code> output from our model comparisons titled “anova_output.” We can do this within a <code>mutate</code> and then use <code>map_dbl</code> (because we want this to be a list of numbers). Within that <code>map_dbl</code>, we will tell it to look within the list for each genre within the column labeled “anova_output” and pull out the column labeled “Pr(&gt;F)” within each of those lists.</p>
@@ -1447,14 +1447,14 @@ compare_all_tidy &lt;- compare_all %&gt;%
 head(compare_all_tidy)      </code></pre>
 <pre><code>
 # A tibble: 6 x 7
-  genre    data          anova_output     p_val model output  r_square
-  &lt;chr&gt;    &lt;list&gt;        &lt;list&gt;           &lt;dbl&gt; &lt;chr&gt; &lt;list&gt;     &lt;dbl&gt;
-1 Action   &lt;tibble [492… &lt;anova [2 × …  8.70e-6 m1    &lt;S3: l…  0.0451 
-2 Adventu… &lt;tibble [223… &lt;anova [2 × …  6.44e-1 m1    &lt;S3: l…  0.0208 
-3 Animati… &lt;tibble [25 … &lt;anova [2 × …  1.51e-1 m1    &lt;S3: l…  0.581  
-4 Biograp… &lt;tibble [105… &lt;anova [2 × …  2.56e-3 m1    &lt;S3: l…  0.209  
-5 Comedy   &lt;tibble [537… &lt;anova [2 × …  4.65e-1 m1    &lt;S3: l…  0.00104
-6 Crime    &lt;tibble [144… &lt;anova [2 × …  4.51e-1 m1    &lt;S3: l…  0.00621</code></pre>
+  genre    data          anova_output      p_val model output r_square
+  &lt;chr&gt;    &lt;list&gt;        &lt;list&gt;            &lt;dbl&gt; &lt;chr&gt; &lt;list&gt;    &lt;dbl&gt;
+1 Action   &lt;tibble [492… &lt;df[,6] [2 × …  8.70e-6 m1    &lt;lm&gt;    0.0451 
+2 Adventu… &lt;tibble [223… &lt;df[,6] [2 × …  6.44e-1 m1    &lt;lm&gt;    0.0208 
+3 Animati… &lt;tibble [25 … &lt;df[,6] [2 × …  1.51e-1 m1    &lt;lm&gt;    0.581  
+4 Biograp… &lt;tibble [105… &lt;df[,6] [2 × …  2.56e-3 m1    &lt;lm&gt;    0.209  
+5 Comedy   &lt;tibble [537… &lt;df[,6] [2 × …  4.65e-1 m1    &lt;lm&gt;    0.00104
+6 Crime    &lt;tibble [144… &lt;df[,6] [2 × …  4.51e-1 m1    &lt;lm&gt;    0.00621</code></pre>
 </div>
 <p>Now that we have our data in tidy format we can plot the r-square for each model by Genre. This will be done in the next tutorial, titled “Making and Saving Plots.”</p>
 <!--radix_placeholder_article_footer-->
