@@ -4,7 +4,7 @@ description: |
   This tutorial will take you through how to conduct multiple comparisons using map2.
 author:
   - name: Kathryn Denning
-date: 06-04-2019
+date: 05-16-2019
 output:
   distill::distill_article:
     self_contained: false
