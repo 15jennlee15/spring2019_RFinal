@@ -49,7 +49,7 @@
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"NULL"}
+  {"type":"character","attributes":{},"value":["tamara_files/bowser-1.9.3/bowser.min.js","tamara_files/distill-2.2.21/template.v2.js","tamara_files/jquery-1.11.3/jquery.min.js","tamara_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -984,6 +984,15 @@ df_genre &lt;- data %&gt;%
   group_by(genres)%&gt;%
   nest()
 
+slice(head(df_genre), 1:3)</code></pre>
+<pre><code>
+# A tibble: 3 x 2
+  genres                          data              
+  &lt;chr&gt;                           &lt;list&gt;            
+1 Action|Adventure|Fantasy|Sci-Fi &lt;tibble [12 x 28]&gt;
+2 Action|Adventure|Fantasy        &lt;tibble [25 x 28]&gt;
+3 Action|Adventure|Thriller       &lt;tibble [45 x 28]&gt;</code></pre>
+<pre class="r"><code>
 # let&#39;s nest our data by country 
 
 df_country &lt;- data %&gt;% 
@@ -991,10 +1000,22 @@ df_country &lt;- data %&gt;%
   group_by(country)%&gt;%
   nest()
 
+slice(head(df_country), 1:3)</code></pre>
+<pre><code>
+# A tibble: 3 x 2
+  country     data                 
+  &lt;chr&gt;       &lt;list&gt;               
+1 USA         &lt;tibble [3,005 x 28]&gt;
+2 UK          &lt;tibble [322 x 28]&gt;  
+3 New Zealand &lt;tibble [11 x 28]&gt;   </code></pre>
+<pre class="r"><code>
 # Country seems to be a more reasonable grouping variable to work with - In genres there seems to be a lot of combinations of different genres. but let&#39;s take a look at the number of observations per group for the two different categories 
 
-save_map &lt;- map(df_country$data, ~length(.x[[1]]))
-save_map2 &lt;- map(df_genre$data, ~length(.x[[1]]))</code></pre>
+save_map_c &lt;- map(df_country$data, ~length(.x[[1]]))
+save_map_g &lt;- map(df_genre$data, ~length(.x[[1]]))
+
+#str(save_map_c[1:3])
+#str(save_map_g[1:3])</code></pre>
 </div>
 <p>For both categories there seems to be a very uneven number of observations per group. However, in genres this might be due to the fact that there are a lot of combinations. I am going to go ahead and use a criteria to determine the genre of the movie as the first genre that appears in the combination, and then I will nest the data again according to this new criteria (I will consider the other genres within the same genre as “sub-genres”)</p>
 <div class="layout-chunk" data-layout="l-body">
