@@ -1,37 +1,18 @@
 [
   {
-    "path": "posts/2019-06-03-tamara/",
-    "title": "Tutorial 2: Looping through with purrr::map",
-    "description": "In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements, or run regressions.",
+    "path": "posts/welcome/",
+    "title": "Welcome to Our Functional Programming Tutorial",
+    "description": "Start here to get an orientation to the tutorial and find out the information you need to get started!",
     "author": [
       {
-        "name": "Tamara Niella",
-        "url": "https://www.linkedin.com/in/tniella"
+        "name": "Katie Denning, Jenn Lewis, Tamara Niella, Karlena Ochoa",
+        "url": "https://15jennlee15/spring2019_RFinal"
       }
     ],
-    "date": "2019-06-09",
+    "date": "2019-06-10",
     "categories": [],
     "preview": {},
-<<<<<<< Updated upstream
-    "last_modified": "2019-06-10T10:07:19-07:00"
-=======
-    "last_modified": "2019-06-10T10:28:25-07:00"
->>>>>>> Stashed changes
-  },
-  {
-    "path": "posts/2019-06-03-model-comparisons-with-map2/",
-    "title": "Tutorial 3: Model Comparisons with map2",
-    "description": "This tutorial will take you through how to conduct multiple comparisons using map2.",
-    "author": [
-      {
-        "name": "Kathryn Denning",
-        "url": {}
-      }
-    ],
-    "date": "2019-06-04",
-    "categories": [],
-    "preview": {},
-    "last_modified": "2019-06-10T10:25:23-07:00"
+    "last_modified": "2019-06-10T10:35:10-07:00"
   },
   {
     "path": "posts/2019-06-03-functions/",
@@ -43,14 +24,40 @@
         "url": "https://github.com/15jennlee15"
       }
     ],
-    "date": "2019-06-03",
+    "date": "2019-06-09",
     "categories": [],
     "preview": {},
-<<<<<<< Updated upstream
-    "last_modified": "2019-06-05T13:47:00-07:00"
-=======
-    "last_modified": "2019-06-10T10:28:55-07:00"
->>>>>>> Stashed changes
+    "last_modified": "2019-06-10T10:34:58-07:00"
+  },
+  {
+    "path": "posts/2019-06-03-tamara/",
+    "title": "Tutorial 2: Looping through with purrr::map",
+    "description": "In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements, or run regressions.",
+    "author": [
+      {
+        "name": "Tamara Niella",
+        "url": "https://www.linkedin.com/in/tniella"
+      }
+    ],
+    "date": "2019-06-08",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-06-10T10:34:50-07:00"
+  },
+  {
+    "path": "posts/2019-06-03-model-comparisons-with-map2/",
+    "title": "Tutorial 3: Model Comparisons with map2",
+    "description": "This tutorial will take you through how to conduct multiple comparisons using map2.",
+    "author": [
+      {
+        "name": "Kathryn Denning",
+        "url": {}
+      }
+    ],
+    "date": "2019-06-07",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-06-10T10:34:43-07:00"
   },
   {
     "path": "posts/2019-06-03-making-and-saving-plots/",
@@ -62,28 +69,9 @@
         "url": {}
       }
     ],
-    "date": "2019-05-11",
+    "date": "2019-06-06",
     "categories": [],
     "preview": {},
-<<<<<<< Updated upstream
-    "last_modified": "2019-06-03T14:05:09-07:00"
-=======
-    "last_modified": "2019-06-10T10:28:42-07:00"
->>>>>>> Stashed changes
-  },
-  {
-    "path": "posts/welcome/",
-    "title": "Welcome to Our Functional Programming Tutorial",
-    "description": "Start here to get an orientation to the tutorial and find out the information you need to get started!",
-    "author": [
-      {
-        "name": "Katie Denning, Jenn Lewis, Tamara Niella, Karlena Ochoa",
-        "url": "https://15jennlee15/spring2019_RFinal"
-      }
-    ],
-    "date": "2019-05-03",
-    "categories": [],
-    "preview": {},
-    "last_modified": "2019-06-10T10:27:52-07:00"
+    "last_modified": "2019-06-10T10:34:36-07:00"
   }
 ]
