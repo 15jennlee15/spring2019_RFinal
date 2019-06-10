@@ -1,7 +1,7 @@
 ---
 title: "Looping through with purrr::map"
 description: |
-  In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements or run regressions
+  In this tutorial we'll learn how to use map to avoid repetitive code and loop through lists to extract elements, or run regressions.
 author:
   - name: Tamara Niella
     url: https://www.linkedin.com/in/tniella 
