@@ -1,26 +1,61 @@
 ---
-title: "Welcome to My Blog"
+title: "Welcome to Our Functional Programming Tutorial"
 description: |
-  Welcome to our new blog, My Blog. We hope you enjoy 
-  reading what we have to say!
+  Start here to get an orientation to the tutorial and find out the information you need to get started!
 author:
-  - name: Nora Jones 
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
-date: 06-03-2019
+  - name: Katie Denning, Jenn Lewis, Tamara Niella, Karlena Ochoa 
+    url: https://15jennlee15/spring2019_RFinal
+    
+date: 05-03-2019
 output:
   distill::distill_article:
     self_contained: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
 
-# Learn more about creating blogs with Distill at:
-# https://rstudio.github.io/distill/blog.html
+### Welcome
 
-```
+In this blog tutorial we will be learning about aspects of functional programming in R, including:  creating functions, looping through purrr map, model comparisons using map2, and how to make and save plots with walk.
+
+You can download our scripts and data from our github url:  https://15jennlee15/spring2019_RFinal
+
+Or you can download the data and install packages your self using the below info:
+
+To follow along in RStudio you will need the following packages installed and loaded:
+
+- tidyverse
+
+- stringr
+
+- splitstackshape
+
+- magrittr
+
+- glue
+
+
+You can download and import the dataset we use here from this site:
+https://data.world/popculture/imdb-5000-movie-dataset
+
+
+Make sure you put this data in your working directory, or I'd recommend making a new R project and adding a data folder there!
+
+
+Description of data:
+28 variables for 5043 movies and 4906 posters, spanning across 100 years in 66 countries. There are 2399 unique director names, and thousands of actors/actresses. Examples of variables in the data set are: "movie_title"  "title_year"  "movie_facebook_likes"
+
+We suggest going through the tutorial in the following order:
+
+- Creating Functions
+
+- Looping Through with purrr map
+
+- Model Comparisons with map2
+
+- Making and Saving Plots
+
+
+We hope you enjoy!
 
 
 

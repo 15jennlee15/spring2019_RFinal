@@ -1,5 +1,5 @@
 ---
-title: "Functions"
+title: "Tutorial 1: Creating Functions"
 description: |
   A quick tutorial on functions and creating custom functions
 author:
@@ -23,23 +23,6 @@ data <- data %>%
          budget = as.numeric(budget),
          profit = gross-budget)
 ```
-### Introduction
-
-In this blog tutorial we will be learning about creating functions in R. To follow along in RStudio you will need the following packages installed and loaded:
-
--tidyverse
-
--rio
-
--here
-
-Furthermore, you will want to download and import the dataset we use here from this site:
-https://data.world/popculture/imdb-5000-movie-dataset
-
-Make sure you put this data in your working directory, or I'd recommend making a new R project and adding a data folder there!
-
-Description of data:
-28 variables for 5043 movies and 4906 posters, spanning across 100 years in 66 countries. There are 2399 unique director names, and thousands of actors/actresses. Examples of variables in the data set are: "movie_title"  "title_year"  "movie_facebook_likes"
 
 ### What's a Function?
 
