@@ -975,6 +975,7 @@
 <p>Our main goal will be to see how the # of Facebook likes that a movie has can predict the movie’s profit and we want to compare it for the different genres and/or countries of the movies.</p>
 <h2 id="getting-started">Getting started</h2>
 <p>In order to do this, first we’ll have to work on our data set to divide the vairables into the different genres or countries. We are going to do this for both genres and countries, have a look at some descriptives and then decide on which one makes more sense to compare the <code>profit~#FacebookLikes</code> regressions.</p>
+<p>To do this, we are going to use the function <code>nest()</code> that we can use with dplyr in a pipe. What <code>nest()</code> does is creates a list of data frames with all the nested variables. In this case, we are grouping the data set by country or genre, and therefore, when we use nest we will get a list of data framas where the variables are enested either by country or by genre. Plus, I added some code so you can take a glance at how the first 3 elments of the list look like after nesting.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 # let&#39;s nest our data by genre
@@ -1008,46 +1009,146 @@ slice(head(df_country), 1:3)</code></pre>
 1 USA         &lt;tibble [3,005 x 28]&gt;
 2 UK          &lt;tibble [322 x 28]&gt;  
 3 New Zealand &lt;tibble [11 x 28]&gt;   </code></pre>
-<pre class="r"><code>
-# Country seems to be a more reasonable grouping variable to work with - In genres there seems to be a lot of combinations of different genres. but let&#39;s take a look at the number of observations per group for the two different categories 
-
-save_map_c &lt;- map(df_country$data, ~length(.x[[1]]))
-save_map_g &lt;- map(df_genre$data, ~length(.x[[1]]))
-
-#str(save_map_c[1:3])
-#str(save_map_g[1:3])</code></pre>
 </div>
-<p>For both categories there seems to be a very uneven number of observations per group. However, in genres this might be due to the fact that there are a lot of combinations. I am going to go ahead and use a criteria to determine the genre of the movie as the first genre that appears in the combination, and then I will nest the data again according to this new criteria (I will consider the other genres within the same genre as “sub-genres”)</p>
+<p>So far, country seems like it could to be a more reasonable grouping variable to work with because in genres there seems to be a lot of combinations of different genres.</p>
+<p>But let’s take a look at the number of observations per group for the two different categories. To do this, what we need to do is to go row by row in the new nested data set and get the length of the tibble under the column “data” for each row (ie. each genre combination/ country).</p>
+<p>Calling each row in a new code line would be repetitive, extremely long, and prone to errors.</p>
+<p>So, guess what?</p>
+<h3 id="its-time-to-use-map">It’s time to use map!</h3>
+<p><code>purrr::map()</code> will allow as “map” or, in other words, loop through each element of whatever list we tell it to and will run the function we tell it to for eahc element of that list and will return a list with the output of that list for each one of the elements.</p>
+<p>Therefore, when using <code>map()</code> we have 2 main argunments:</p>
+<ul>
+<li>A <em>list</em> that we want to map through</li>
+<li>A <em>function</em> that we want apply to each element of that list</li>
+</ul>
+<p>The way we code this in general terms looks something like this:</p>
+<p><code>map( list, ~ function(.x))</code></p>
+<p>The term <code>~</code> goes before the finction we are going to map and the term <code>.x</code> goes in the function indicating that that is where each element of our list will go when we are mapping the fucntion through each one of them.</p>
+<p>So, in this case we want to map through a list of data frames (in one case divided by country, in the other divided by genre combination) and obtain the length of each data frame.</p>
+<p>Let’s do it!</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-#let&#39;s separate the combination of genres for each movie and keep the first genre as main genre in a new variable
+#Obtaining the # of observations per country
+save_map_c &lt;- map(df_country$data, ~length(.x[[1]])) </code></pre>
+</div>
+<p>As you can see, we indicated the list, which in this case is the column that contains the data frames ( <code>data</code> ), and since length only works per one variable, we tell the function to look at the first column if each data frame, therefore we coded <code>.x[[1]]</code></p>
+<p>Now let’s do it for the list of data frames divided by genre combination. And take a firs tglance at some of the different lengths in both cases.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+#Obtaining the # of observations per genre combination
+save_map_g &lt;- map(df_genre$data, ~length(.x[[1]]))
+
+# Let&#39;s look at country
+save_map_c[1:10]</code></pre>
+<pre><code>
+[[1]]
+[1] 3005
+
+[[2]]
+[1] 322
+
+[[3]]
+[1] 11
+
+[[4]]
+[1] 62
+
+[[5]]
+[1] 40
+
+[[6]]
+[1] 82
+
+[[7]]
+[1] 15
+
+[[8]]
+[1] 1
+
+[[9]]
+[1] 103
+
+[[10]]
+[1] 17</code></pre>
+<pre class="r"><code>
+#Let&#39;s look at genre
+save_map_g[1:10]</code></pre>
+<pre><code>
+[[1]]
+[1] 12
+
+[[2]]
+[1] 25
+
+[[3]]
+[1] 45
+
+[[4]]
+[1] 22
+
+[[5]]
+[1] 48
+
+[[6]]
+[1] 5
+
+[[7]]
+[1] 2
+
+[[8]]
+[1] 5
+
+[[9]]
+[1] 9
+
+[[10]]
+[1] 4</code></pre>
+</div>
+<p>For both categories there seems to be an uneven number of observations per group. However, in genres this might be due to the fact that there are a lot of combinations.</p>
+<p>To solve this, I am going to go ahead and use a criteria to determine the genre of the movie as the first genre that appears in the combination, and then I will nest the data again according to this new criteria (I will consider the other genres within the same genre as “sub-genres”)</p>
+<p>So, let’s separate the combination of genres for each movie and keep the first genre as main genre in a new variable:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+#let&#39;s make sure our data set is clean and that we dont have any unnecessary observations that could damage our final goel (regressions)
 
 data_new &lt;- data%&gt;%
- drop_na() %&gt;%
- filter(movie_facebook_likes != &quot;0&quot;)
+ drop_na() %&gt;% #get rid of NAs
+ filter(movie_facebook_likes != &quot;0&quot;) #0 fb likes actually means NA, so we will get rid of those too 
 
+# let&#39;s divide the column genres into different columns, one for each genre in the combination 
 
 data_new&lt;- cSplit(data_new, &quot;genres&quot;, &quot;|&quot;)
 
+# The first genre in the combination will be the Main Genre of the movie 
+
 data_new %&lt;&gt;% rename(main_genre = genres_1)
 
-#now let&#39;s nest data by main genre 
+#now let&#39;s nest data by main genre (we are only interedted in this, and not sub-genres)
 
 df_main_genre &lt;- data_new%&gt;%
  select(-genres_2, -genres_3, -genres_4, -genres_5, -genres_6, -genres_7, -genres_8) %&gt;%
  filter(!grepl(&#39;Thriller|Western|Musical|Family|Romance|Sci-Fi&#39;, main_genre)) %&gt;%
-# need to remove thriller, western, musical, family, romance, sci_fi for having less than 5 movies
+# need to remove thriller, western, musical, family, romance, sci_fi for having less than 5 movies to be able to run a regression
  group_by(main_genre) %&gt;%
  nest()</code></pre>
 </div>
-<p>You’ll see in the code above that we used <code>grepl</code> when filtering. <code>grepl</code> is a base function that looks for patterns in data that is supplied to it, typically outputting a logical vector of <code>TRUE</code> and <code>FALSE</code>. However, when used in association with <code>filter</code>, <code>grepl</code> tells filter to look for patterns in (or to exclude in our case) whatever is supplied in the first argument - six genres for us - out of the second argument, the supplied data. In our example, it is looking for any of the genres supplied and is excluding them. <code>grepl</code> is helpful when we have so many different things we are telling <code>filter</code> to look for, as it helps exclude repetitive code when filter (e.g., filter != ‘Thriller`| filter != ’Western’ and so on).</p>
-<p>Now let’s map through the list to run a regression predicting profit from number of facebook likes for the movie</p>
+<p><em>Side notes:</em></p>
+<p>You’ll see in the code above that we used <code>cSplit</code> when dividing the genres column into columns for each genre in the combination. What this function does is to split conatenated data into separate values. As you can see, in this case we told it to separate the data under the <code>genres</code> column in our data set and we told to split it under the criteria of using <code>|</code> and separation term, whis is what was separatin the genres in the column. That way, we got one column per genre i neach combination.</p>
+<p>You’ll also see that we used <code>grepl</code> when filtering. <code>grepl</code> is a base function that looks for patterns in data that is supplied to it, typically outputting a logical vector of <code>TRUE</code> and <code>FALSE</code>. However, when used in association with <code>filter</code>, <code>grepl</code> tells filter to look for patterns in (or to exclude in our case) whatever is supplied in the first argument - six genres for us - out of the second argument, the supplied data. In our example, it is looking for any of the genres supplied and is excluding them. <code>grepl</code> is helpful when we have so many different things we are telling <code>filter</code> to look for, as it helps exclude repetitive code when filter (e.g., filter != ‘Thriller`| filter != ’Western’ and so on).</p>
+<h3 id="going-back-to-our-goal">Going back to our goal:</h3>
+<p>Now let’s map through the new list of data frames divided by main genre to run a regression predicting movie’s profit from movie’s number of facebook likes.</p>
+<p>First, we are going to do some coding to make sure there are no NULL or NA values in our list, otherwise we’ll run in an error</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 df_mg_nonull &lt;- df_main_genre[[2]]
-df_mg_nonull &lt;- df_mg_nonull[!map_lgl(df_mg_nonull, is.null)]
+df_mg_nonull &lt;- df_mg_nonull[!map_lgl(df_mg_nonull, is.null)]</code></pre>
+</div>
+<p>Now that we have the list that we want to map the regression through, let’s do it!! As you’ll see, in this case the function we are going to loop through is <code>lm()</code> which basically allow us to run a regression. We tell <code>lm()</code> which variable we want to predict and which variable will be our predictor, and these will always be the same for each iteration (we are predicting profit from # of FB likes for each genre). We also need to tell <code>lm()</code> which data to use for this, and this is what will vary, therefore, her eis where the term <code>.x</code> will go.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+model &lt;- map(df_mg_nonull, ~lm(profit~movie_facebook_likes, .x))
 
-map(df_mg_nonull, ~lm(profit~movie_facebook_likes, .x))</code></pre>
+model</code></pre>
 <pre><code>
 [[1]]
 
@@ -1056,7 +1157,7 @@ lm(formula = profit ~ movie_facebook_likes, data = .x)
 
 Coefficients:
          (Intercept)  movie_facebook_likes  
-         -15113465.0                 958.1  
+          -1.511e+07             9.581e+02  
 
 
 [[2]]
@@ -1076,7 +1177,7 @@ lm(formula = profit ~ movie_facebook_likes, data = .x)
 
 Coefficients:
          (Intercept)  movie_facebook_likes  
-         -13588416.0                 656.1  
+          -1.359e+07             6.561e+02  
 
 
 [[4]]
@@ -1136,7 +1237,7 @@ lm(formula = profit ~ movie_facebook_likes, data = .x)
 
 Coefficients:
          (Intercept)  movie_facebook_likes  
-          12305642.2                 832.2  
+           1.231e+07             8.322e+02  
 
 
 [[10]]
@@ -1147,34 +1248,8 @@ lm(formula = profit ~ movie_facebook_likes, data = .x)
 Coefficients:
          (Intercept)  movie_facebook_likes  
           -2165732.3                 841.6  </code></pre>
-<pre class="r"><code>
-#but actually, I think it might be better if I bouild that data fram as a list of lists 
-
-#season to wave 
-df_mg_list &lt;- data_new %&gt;%
- select(-genres_2, -genres_3, -genres_4, -genres_5, -genres_6, -genres_7, -genres_8)%&gt;%
- mutate(main_genre = as.factor(main_genre)) %&gt;%
- filter(!grepl(&#39;Thriller|Western|Musical|Family|Romance|Sci-Fi&#39;, main_genre)) %&gt;%
- droplevels(data_new$main_genre) %&gt;%
-# need to remove thriller, western, musical, family, romance, sci_fi for having less than 5 movies
-   as_tibble()
-
-
-by_main_genre &lt;- split(df_mg_list, df_mg_list$main_genre)
-
-
-model &lt;- map(by_main_genre, ~lm(profit ~ movie_facebook_likes, .x))
-
-#model
-
-coefs &lt;- map(model, ~coef(.x))
-
-slopes &lt;- map_dbl(coefs, 2)
-
-
-
-# I think splitting works better for this then nesting, but I&#39;m leaving both methods for now, and then wecan decide if we want to keep one or the other or both </code></pre>
 </div>
+<h2 id="we-did-it">We did it!!!</h2>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
