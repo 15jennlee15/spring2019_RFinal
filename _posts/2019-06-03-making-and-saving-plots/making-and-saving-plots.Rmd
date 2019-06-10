@@ -254,6 +254,8 @@ Then we will name all the plots and make sure all the titles are in the same for
 You can check the paths that you created to make sure they are there.
 You do this by just calling `paths`. 
 
+### Walk2
+
 We will use walk2, which is also a parallel iteration, to save the plots to that folder we created. Walk2 is different than other parallel iterations because we are using it for the side effects and not necessarily the value like we do for map2. This is helpful in cases you may want to make a lot of plots and save them to a disk. 
 
 `walk2(paths, profit_by_genre$plot, ggsave,

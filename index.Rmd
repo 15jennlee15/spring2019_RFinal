@@ -1,5 +1,5 @@
 ---
-title: "My Blog"
+title: "Blog on functional programming with R"
 site: distill::distill_website
 listing: posts
 ---
